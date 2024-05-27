@@ -8,8 +8,8 @@ import {
     Outlet
 } from 'react-router-dom'
 
-import Login from '../screens/Login'
-
+import Login from '../screens/login/Login'
+import Index from '../screens/Index'
 const Rotas = () => {
 
     return (
@@ -17,6 +17,7 @@ const Rotas = () => {
             <Routes>
                 <Route index element={<Login />} />
                 <Route path="/" element={<Login />} />
+                <Route path="/index" element={<Index />} />
             </Routes>
         </BrowserRouter>
     )
