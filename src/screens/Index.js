@@ -1,7 +1,14 @@
+import Menulateral from "../components/menuLatela/menuLateral"
+
 const Index = () => {
     return (
-        <div>
-            asdasd
+        <div style={{ display:"flex"}}>
+            
+            <Menulateral />
+            
+            <div className="">
+
+            </div>
         </div>
     )
 }

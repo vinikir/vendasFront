@@ -10,6 +10,9 @@ import {
 
 import Login from '../screens/login/Login'
 import Index from '../screens/Index'
+import Produtos from '../screens/produtos/produtos'
+import Entrada from '../screens/entrada/entrada'
+
 const Rotas = () => {
 
     return (
@@ -18,6 +21,8 @@ const Rotas = () => {
                 <Route index element={<Login />} />
                 <Route path="/" element={<Login />} />
                 <Route path="/index" element={<Index />} />
+                <Route path="/produtos" element={<Produtos />} />
+                <Route path="/entrada" element={<Entrada />} />
             </Routes>
         </BrowserRouter>
     )

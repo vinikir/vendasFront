@@ -4,13 +4,14 @@ import './login.css'
 
 import Modal from "../../components/modal/modal"
 const Login = () => {
+    
     const [ login, setLogin ] = useState("")
     const [ senha, setSenha ]  = useState("")
     const [ msgModal, setMsgModal] = useState("")
     const [ modalAberta, setModalAberta] = useState(false)
 
     const logar = () => {
-        
+
         if(login.trim() == ""){
             setModalAberta(true)
             setMsgModal("O login é obrigatorio")
