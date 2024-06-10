@@ -12,11 +12,20 @@ const Entrada = () => {
     const [descricao, setDescricao ] = useState("")
     const [valorCompra, setValorCompra ] = useState("")
     const [descontoMaximo, setDescontoMaximo ] = useState(0)
-    const [margem, setMargem ] = useState(0)
+    const [margem, setMargem ] = useState("20")
     const [qtd, setQtd ] = useState(0)
 
     const [msg, setMsg]= useState("")
     const [modalAberta, setModalAberta] = useState(false)
+
+    const limparFormulario = () => {
+        setNome("")
+        setDescricao("")
+        setValorCompra("")
+        setDescontoMaximo("")
+        setMargem("20")
+        setQtd("")
+    }
 
     const salvarEntrada = () => {
 
@@ -50,12 +59,14 @@ const Entrada = () => {
             setModalAberta(true)
         }
 
+        let valorCompraReplace = valorCompra.replace(",",".")
+        valorCompraReplace = parseFloat(valorCompraReplace)
 
         api.post('/produto',{
             ativo:isChecked,
             nome:nome,
             descricao,
-            valorCompra,
+            valorCompra:valorCompraReplace,
             descontoMaximo,
             margem,
             estoque:qtd         
@@ -64,6 +75,7 @@ const Entrada = () => {
             if(typeof re.data != "undefined" && typeof re.data.valor != "undefined" && typeof re.data.valor._id != "undefined"){
                 setMsg("Entrada realizada com sucesso")
                 setModalAberta(true)
+                limparFormulario()
             }
             console.log(re)
         })

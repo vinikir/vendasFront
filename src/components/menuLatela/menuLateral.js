@@ -1,4 +1,6 @@
 import "./menuLateral.css"
+
+
 const Menulateral = ({selecionado, callback}) => {
     const urlLocal = window.location.pathname
 
@@ -38,18 +40,20 @@ const Menulateral = ({selecionado, callback}) => {
 
 
     return (
-        <div className="container">
-            {
-                abas.map((el) => {
-                    return(
-                        <div className={  el.url == urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
-                            redirecionar(el.url)
-                        }}>
-                            {el.nome}
-                        </div>
-                    )
-                })
-            }
+        <div className="container-menu">
+            <div className="sub-container-menu">
+                {
+                    abas.map((el) => {
+                        return(
+                            <div className={  el.url == urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
+                                redirecionar(el.url)
+                            }}>
+                                {el.nome}
+                            </div>
+                        )
+                    })
+                }
+            </div>
             
         </div>
     )
