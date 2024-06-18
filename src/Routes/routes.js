@@ -11,7 +11,7 @@ import ProdutosListagem from '../screens/produtos/produtosListagem'
 import Entrada from '../screens/entrada/entrada'
 import AuthMl from '../screens/authML'
 import Tes from '../screens/teste'
-
+import Oficina from '../screens/oficina'
 const Rotas = () => {
 
     return (
@@ -23,7 +23,7 @@ const Rotas = () => {
                 <Route path="/produtos" element={<ProdutosListagem />} />
                 <Route path="/entrada" element={<Entrada />} />
                 <Route path="/authml" element={<AuthMl />} />
-                <Route path="/teste" element={<AuthMl />} />
+                <Route path="/oficina" element={<Oficina />} />
             </Routes>
         </BrowserRouter>
     )

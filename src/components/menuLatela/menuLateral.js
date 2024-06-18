@@ -35,6 +35,11 @@ const Menulateral = ({selecionado, callback}) => {
             id:4,
             nome:"DashBoard",
             url:"/index"
+        },
+        {
+            id:5,
+            nome:"Oficina",
+            url:"/oficina"
         }
     ]
 
