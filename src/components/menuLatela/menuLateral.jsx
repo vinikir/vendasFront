@@ -48,9 +48,9 @@ const Menulateral = ({selecionado, callback}) => {
         <div className="container-menu">
             <div className="sub-container-menu">
                 {
-                    abas.map((el) => {
+                    abas.map((el, index) => {
                         return(
-                            <div className={  el.url == urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
+                            <div key={index.toString()} className={  el.url == urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
                                 redirecionar(el.url)
                             }}>
                                 {el.nome}

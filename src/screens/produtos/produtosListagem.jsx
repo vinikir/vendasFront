@@ -13,6 +13,10 @@ const Produtos = () => {
         })
     },[])
 
+    const atualizar = (id) => {
+        window.location.href = "produto/atualizar/"+id
+    }
+
     let totalValorVenda = 0
     let totalValorCompra = 0
     let qtdProdutos = 0
@@ -44,13 +48,13 @@ const Produtos = () => {
                             <tbody>
                                 {
                                     produtos.map((re) => {
-                                        console.log(re)
+                                        
 
 
                                         let valorV = `${re.valorVenda}`
-
+                                        
                                         totalValorVenda = totalValorVenda+ ( parseFloat(valorV) * re.estoque )
-
+                                       
                                         let valorC = `${re.valorCompra}`
 
                                         totalValorCompra = totalValorCompra + ( parseFloat(valorC) * re.estoque )
@@ -67,7 +71,7 @@ const Produtos = () => {
                                         valorV =  parseFloat(valorV).toFixed(2).toString().replace(".",",")
 
                                         return(
-                                            <tr>
+                                            <tr onClick={() => atualizar(re._id)}>
                                                 <th>{re.nome}</th>
                                                 <th>{valorC}</th>
                                                 {/* <th>{valorTotalCompraPorItem}</th> */}
@@ -79,7 +83,7 @@ const Produtos = () => {
                                         )
                                     })
                                 }
-                                <tr>
+                                <tr >
                                     <th>TOTAL</th>
                                     <th>{parseFloat(totalValorCompra).toFixed(2).toString().replace(".",",")}</th>
                                     <th>{parseFloat(totalValorVenda).toFixed(2).toString().replace(".",",")}</th>

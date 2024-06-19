@@ -1,11 +1,11 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import Menulateral from "../../components/menuLatela/menuLateral";
 import "./entrada.css"
 import api from "../../connection/connection";
 import Modal from "../../components/modal/modal";
-
+import { useLocation, useParams } from 'react-router-dom';
 const Entrada = () => {
-
+   
     const [isChecked, setIsChecked] = useState(true);
     const [produtoBuscar, setProdutoBuscar ] = useState("")
     const [nome, setNome ] = useState("")
@@ -14,6 +14,31 @@ const Entrada = () => {
     const [descontoMaximo, setDescontoMaximo ] = useState(0)
     const [margem, setMargem ] = useState("20")
     const [qtd, setQtd ] = useState(0)
+    const [atualizacao, setAtualizacao] = useState(false)
+    const [idProduto, setIdProduto] = useState(false)
+
+    const { id } = useParams(); 
+
+    const location = useLocation();
+   
+    const pathnam = location.pathname
+
+    useEffect(() => {
+
+        if(pathnam.includes("produto/atualizar")){
+
+            setAtualizacao(true)
+            
+            console.log("id", id)
+        }
+
+
+    },[pathnam])
+
+    
+   
+    
+       
 
     const [msg, setMsg]= useState("")
     const [modalAberta, setModalAberta] = useState(false)
@@ -69,7 +94,7 @@ const Entrada = () => {
             valorCompra:valorCompraReplace,
             descontoMaximo,
             margem,
-            estoque:qtd         
+            quantidade:qtd         
         }).then(re=> {
 
             if(typeof re.data != "undefined" && typeof re.data.valor != "undefined" && typeof re.data.valor._id != "undefined"){
