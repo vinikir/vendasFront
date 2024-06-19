@@ -15,7 +15,6 @@ const Entrada = () => {
     const [margem, setMargem ] = useState("20")
     const [qtd, setQtd ] = useState(0)
     const [atualizacao, setAtualizacao] = useState(false)
-    const [idProduto, setIdProduto] = useState(false)
 
     const { id } = useParams(); 
 
@@ -28,15 +27,33 @@ const Entrada = () => {
         if(pathnam.includes("produto/atualizar")){
 
             setAtualizacao(true)
-            
-            console.log("id", id)
+            buscaInfosproduto()
         }
 
 
     },[pathnam])
 
+    const buscaInfosproduto = () => {
+        api.get("produtos?id="+id).then(res=> {
+            console.log(res.data.valor)
+            if(typeof res.data != "undefined" && typeof res.data.valor != "undefined" && typeof res.data.valor[0] != "undefined" && typeof res.data.valor[0]._id != "undefined"){
+               
+                preencheFormulario( res.data.valor[0])
+            }
+        })
+    }
+
+    const preencheFormulario = (infos) => {
+        
+        setIsChecked(infos.ativo)
+        setNome(infos.nome)
+        setDescricao(infos.descricao)
+        setValorCompra(infos.valorCompra)
+        setDescontoMaximo(infos.descontoMaximo)
+        setMargem(infos.margem)
+        setQtd(infos.estoque)
+    }
     
-   
     
        
 
@@ -52,7 +69,7 @@ const Entrada = () => {
         setQtd("")
     }
 
-    const salvarEntrada = () => {
+    const enviar = () => {
 
         if(qtd <= 0){
             setMsg("Quantodade precisa ser maior que 0")
@@ -87,7 +104,9 @@ const Entrada = () => {
         let valorCompraReplace = valorCompra.replace(",",".")
         valorCompraReplace = parseFloat(valorCompraReplace)
 
-        api.post('/produto',{
+        let url = '/produto'
+
+        let infos = {
             ativo:isChecked,
             nome:nome,
             descricao,
@@ -95,7 +114,15 @@ const Entrada = () => {
             descontoMaximo,
             margem,
             quantidade:qtd         
-        }).then(re=> {
+        }
+
+        if(atualizacao){
+            url = url+"/atualizar"
+            infos.id = id 
+        }
+
+
+        api.post(url,infos).then(re=> {
 
             if(typeof re.data != "undefined" && typeof re.data.valor != "undefined" && typeof re.data.valor._id != "undefined"){
                 setMsg("Entrada realizada com sucesso")
@@ -109,6 +136,8 @@ const Entrada = () => {
     const handleChange = (event) => {
         setIsChecked(event.target.checked);
     };
+
+    
 
     return (
         <div style={{ display:"flex"}}>
@@ -186,7 +215,7 @@ const Entrada = () => {
 
                     <div className="row">
                         <div className="divInput" >
-                            <button onClick={() => salvarEntrada()}>
+                            <button onClick={() => enviar()}>
                                 Salvar
                             </button>
                         </div>
