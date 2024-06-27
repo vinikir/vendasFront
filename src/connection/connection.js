@@ -1,9 +1,9 @@
 import axios from 'axios'
-import env from "react-dotenv";
 
 const api = axios.create({
    
-    baseURL: env.REACT_APP_API_URL,
+    //baseURL:"https://vendasbackcentral-production.up.railway.app/",
+    baseURL:"http://127.0.0.1:3300/",
   
     timeout: 30000,
     headers: {
