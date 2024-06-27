@@ -7,7 +7,7 @@ const Menulateral = ({selecionado, callback}) => {
     const redirecionar = ( rota ) => {
 
 
-        if(rota == urlLocal){
+        if(rota === urlLocal){
             return
         }
 
@@ -50,7 +50,7 @@ const Menulateral = ({selecionado, callback}) => {
                 {
                     abas.map((el, index) => {
                         return(
-                            <div key={index.toString()} className={  el.url == urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
+                            <div key={index.toString()} className={  el.url === urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
                                 redirecionar(el.url)
                             }}>
                                 {el.nome}

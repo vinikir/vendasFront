@@ -12,13 +12,13 @@ const Login = () => {
 
     const logar = () => {
 
-        if(login.trim() == ""){
+        if(login.trim() === ""){
             setModalAberta(true)
             setMsgModal("O login é obrigatorio")
             return
         }
 
-        if(senha.trim() == ""){
+        if(senha.trim() === ""){
             setModalAberta(true)
             setMsgModal("A senha é obrigatoria")
             return

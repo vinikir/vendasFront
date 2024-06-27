@@ -30,7 +30,7 @@ const Entrada = () => {
             buscaInfosproduto()
         }
 
-
+    // eslint-disable-next-line 
     },[pathnam])
 
     const buscaInfosproduto = () => {
@@ -76,17 +76,17 @@ const Entrada = () => {
             setModalAberta(true)
         }
 
-        if(nome.trim() == ""){
+        if(nome.trim() === ""){
             setMsg("O nome é obrigatorio")
             setModalAberta(true)
         }
 
-        if(valorCompra.trim() == ""){
+        if(valorCompra.trim() === ""){
             setMsg("O valor de compra é obrigatorio")
             setModalAberta(true)
         }
 
-        if(margem.trim() == "" || margem == 0){
+        if(margem.trim() === "" || margem === 0){
             setMsg("A margem é obrigatoria")
             setModalAberta(true)
         }

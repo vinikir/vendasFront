@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from "react"
+import React, { useEffect, useState } from "react"
 import Menulateral from "../../components/menuLatela/menuLateral"
 import { buscaProdutos } from "../../functions/funcoes"
 import "./produtosListagem.css"

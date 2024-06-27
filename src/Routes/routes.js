@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React,  from 'react'
 import { 
     BrowserRouter, 
     Route,
@@ -10,7 +10,6 @@ import Index from '../screens/Index'
 import ProdutosListagem from '../screens/produtos/produtosListagem'
 import Entrada from '../screens/entrada/entrada'
 import AuthMl from '../screens/authML'
-import Tes from '../screens/teste'
 import Oficina from '../screens/oficina'
 const Rotas = () => {
 
