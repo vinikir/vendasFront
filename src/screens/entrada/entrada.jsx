@@ -48,9 +48,9 @@ const Entrada = () => {
         setIsChecked(infos.ativo)
         setNome(infos.nome)
         setDescricao(infos.descricao)
-        setValorCompra(infos.valorCompra)
-        setDescontoMaximo(infos.descontoMaximo)
-        setMargem(infos.margem)
+        setValorCompra(`${infos.valorCompra}`)
+        setDescontoMaximo(  infos.descontoMaximo != null ? infos.descontoMaximo : "")
+        setMargem(`${infos.margem}`)
         setQtd(infos.estoque)
     }
     
@@ -80,8 +80,8 @@ const Entrada = () => {
             setMsg("O nome é obrigatorio")
             setModalAberta(true)
         }
-
-        if(valorCompra.trim() === ""){
+        
+        if( valorCompra.trim() === ""){
             setMsg("O valor de compra é obrigatorio")
             setModalAberta(true)
         }
@@ -121,10 +121,16 @@ const Entrada = () => {
             infos.id = id 
         }
 
+        // console.log(infos)
+        // return
 
         api.post(url,infos).then(re=> {
-
-            if(typeof re.data != "undefined" && typeof re.data.valor != "undefined" && typeof re.data.valor._id != "undefined"){
+            
+            if(typeof re.data != "undefined" && typeof re.data.valor != "undefined" &&  ( typeof re.data.valor._id != "undefined" ||typeof re.data.valor.modifiedCount != "undefined")){
+               
+                if(atualizacao){
+                    return window.location.href = "/produtos"
+                }
                 setMsg("Entrada realizada com sucesso")
                 setModalAberta(true)
                 limparFormulario()
