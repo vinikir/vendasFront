@@ -3,6 +3,7 @@ import api from "../../connection/connection"
 import './login.css'
 
 import Modal from "../../components/modal/modal"
+
 const Login = () => {
     
     const [ login, setLogin ] = useState("")
@@ -40,24 +41,28 @@ const Login = () => {
         <div className="container">
 
             <div className="subContainer">
+                <img src="/img/LogoSemFundo.png" alt="" width={300} height={300}/>
+                <div >
+                    <div className="divInput">
+                        <label>Login</label>
+                        <input value={login} className="inputLogin" onChange={(e) => setLogin(e.target.value)}  />
+                    </div>
 
-                <div className="divInput">
-                    <label>Login</label>
-                    <input value={login} className="inputLogin" onChange={(e) => setLogin(e.target.value)}  />
+                    <div className="divInput">
+                        <label>Senha</label>
+                        <input value={senha} type="password" className="inputLogin" onChange={(e) => setSenha(e.target.value)}  />
+                    </div>
+
+                    <div className="divInput">
+                        <button onClick={() => {
+                            logar()
+                        }} className="botaoLogin">
+                            Logar
+                        </button>
+                    </div>
                 </div>
 
-                <div className="divInput">
-                    <label>Senha</label>
-                    <input value={senha} type="password" className="inputLogin" onChange={(e) => setSenha(e.target.value)}  />
-                </div>
-
-                <div className="divInput">
-                    <button onClick={() => {
-                        logar()
-                    }} className="botaoLogin">
-                        Logar
-                    </button>
-                </div>
+               
 
             </div>
 
