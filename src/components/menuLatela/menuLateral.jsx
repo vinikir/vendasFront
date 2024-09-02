@@ -16,11 +16,7 @@ const Menulateral = ({selecionado, callback}) => {
     }
 
     const abas = [
-        {
-            id:1,
-            nome:"PDV",
-            url:"/pdv"
-        },
+        
         {
             id:2,
             nome:"Entrada",
@@ -38,8 +34,8 @@ const Menulateral = ({selecionado, callback}) => {
         },
         {
             id:5,
-            nome:"Oficina",
-            url:"/oficina"
+            nome:"Caixa",
+            url:"/fluxo"
         }
     ]
 

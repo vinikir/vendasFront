@@ -113,7 +113,8 @@ const Entrada = () => {
             valorCompra:valorCompraReplace,
             descontoMaximo,
             margem,
-            quantidade:qtd         
+            quantidade:qtd,
+            tipo:"venda"         
         }
 
         if(atualizacao){
