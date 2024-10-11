@@ -5,6 +5,7 @@ import "./fluxo.css"
 const Fluxo = () => {
 
     const [ produtos, setProdutos] = useState([[]])
+    // eslint-disable-next-line 
     const [ index, setIndex] = useState(0)
 
     useEffect(() => {
@@ -12,15 +13,16 @@ const Fluxo = () => {
             //console.log(chunkArray( res, 10))
             //setProdutos(chunkArray( res, 10))
             setProdutos([res])
+            
         })
     },[])
-    const chunkArray = (array, size) => {
-        const chunkedArray = [];
-        for (let i = 0; i < array.length; i += size) {
-          chunkedArray.push(array.slice(i, i + size));
-        }
-        return chunkedArray;
-    }
+    // const chunkArray = (array, size) => {
+    //     const chunkedArray = [];
+    //     for (let i = 0; i < array.length; i += size) {
+    //       chunkedArray.push(array.slice(i, i + size));
+    //     }
+    //     return chunkedArray;
+    // }
       
    
 
@@ -54,11 +56,11 @@ const Fluxo = () => {
                                         
                                         let valor = `${re.valor.toFixed(2)}`.replace(".",",")
 
-                                        if(re.tipo == "venda"){
+                                        if(re.tipo === "venda"){
 
                                             totalValorCaixa = totalValorCaixa+re.valor
 
-                                        }else  if(re.tipo == "entrada"){
+                                        }else  if(re.tipo === "entrada"){
 
                                             totalValorCaixa = totalValorCaixa+re.valor
 

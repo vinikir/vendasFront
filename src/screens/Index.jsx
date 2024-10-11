@@ -11,7 +11,7 @@ const Index = () => {
     const [ vendasTipo,setVendasTipo ] = useState([])
     const [ vendasQtdTipo,setVendasQtdTipo ] = useState([])
 
-    const [ tipoProduto, setTipoProduto] = []
+    // const [ tipoProduto, setTipoProduto] = []
 
 
     useEffect(() => {
@@ -30,16 +30,16 @@ const Index = () => {
 
                 for (let index = 0; index < element.produtos.length; index++) {
                     const elementP = element.produtos[index];
-                    if(elementP.tipo == "insumos"){
+                    if(elementP.tipo === "insumos"){
                         continue
                     }
 
-                    if(elementP.tipo == "venda"){
+                    if(elementP.tipo === "venda"){
                         elementP.tipo = "produto"
                     }
 
                     
-                    if(typeof v[elementP.tipo] == "undefined"){
+                    if(typeof v[elementP.tipo] === "undefined"){
                         v[elementP.tipo] = 1
                     }else{
                         v[elementP.tipo] ++
@@ -65,7 +65,7 @@ const Index = () => {
         })
     },[])
 
-    const colors = ["#4f4f","#748"]
+    
     const t2 = {
         options: {
             chart: {
