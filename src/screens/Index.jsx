@@ -34,6 +34,10 @@ const Index = () => {
                         continue
                     }
 
+                    if(elementP.tipo == "venda"){
+                        elementP.tipo = "produto"
+                    }
+
                     
                     if(typeof v[elementP.tipo] == "undefined"){
                         v[elementP.tipo] = 1

@@ -18,6 +18,7 @@ export const buscaFluxo = async () => {
 
     const res = await api.get("/caixa").then(res => {
         if(typeof res.data != "undefined" && res.data.erro === false){
+           
             return res.data.valor
         }
 

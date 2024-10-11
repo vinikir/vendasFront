@@ -1,0 +1,39 @@
+name: Deploy React to S3
+
+on:
+  push:
+    branches:
+      - main  # Ou o branch que você quiser monitorar
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'  # Certifique-se de usar a versão do Node.js correta
+
+      # Step 3: Instalar dependências
+      - name: Install dependencies
+        run: yarn install
+
+      # Step 4: Build do projeto
+      - name: Build project
+        run: yarn build
+
+      # Step 5: Deploy para o S3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+      - name: Deploy to S3
+        run: aws s3 sync build/ s3://gemmotopecas.com.br --delete --acl public-read

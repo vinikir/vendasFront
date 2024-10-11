@@ -9,9 +9,9 @@ const Fluxo = () => {
 
     useEffect(() => {
         buscaFluxo().then((res) => {
-            console.log(chunkArray( res, 10))
-            setProdutos(chunkArray( res, 10))
-
+            //console.log(chunkArray( res, 10))
+            //setProdutos(chunkArray( res, 10))
+            setProdutos([res])
         })
     },[])
     const chunkArray = (array, size) => {
@@ -36,11 +36,10 @@ const Fluxo = () => {
               
                 <div style={{ display:"flex", height: "100vh", width: '80%' }}>
                     
-                    <div style={{ display:"flex", maxHeight: "100vh", width: '100%', alignItems:"center", justifyContent:"center"  }}>
-                        <table style={{maxHeight: "90vh", overflow:"auto"}}>
+                    <div style={{ display:"flex", maxHeight: "100vh", width: '100%', justifyContent:"center", height:"90%", overflow:"auto", marginTop:20  }}>
+                        <table style={{marginTop:0, overflow:"auto"}}>
                             <thead>
                                 <tr>
-                                
                                     <th>Ação</th>
                                     <th>Usuario</th>
                                     <th>Valor</th>
