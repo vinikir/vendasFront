@@ -43,3 +43,13 @@ export const buscaVendas = async () => {
     return res
 }
 
+export const mascaraMoentaria =  (val) => {
+    let onlyDigits = val.replace(/\D/g, "");
+
+    // Converte para um número decimal com duas casas
+    let numericValue = (parseInt(onlyDigits, 10) / 100).toFixed(2);
+
+    // Substitui o ponto por vírgula
+    return numericValue.replace(".", ",");
+}
+

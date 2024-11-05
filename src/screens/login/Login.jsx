@@ -39,32 +39,41 @@ const Login = () => {
 
     return (
         <div className="container">
-
-            <div className="subContainer">
-                <img src="/img/LogoSemFundo.png" alt="" width={300} height={300}/>
+            <div className="containeE">
                 <div >
-                    <div className="divInput">
-                        <label>Login</label>
+                    <img src="/img/LogoSemFundo.png" alt="" width={300} height={300}/>
+                </div>
+            </div>
+            <div className="containeD">
+                <div style={{display:"flex", width:"70%", height:"60%",  alignItems:"center", justifyContent:"space-around", flexDirection:"column"}}>
+                    <div className="divInputLogin">
+
+                        <label style={{fontSize:"30px"}}>Login</label>
                         <input value={login} className="inputLogin" onChange={(e) => setLogin(e.target.value)}  />
                     </div>
 
-                    <div className="divInput">
-                        <label>Senha</label>
+                    <div className="divInputLogin">
+                        <label style={{fontSize:"30px"}}>Senha</label>
                         <input value={senha} type="password" className="inputLogin" onChange={(e) => setSenha(e.target.value)}  />
                     </div>
 
-                    <div className="divInput">
+                    <div className="divInputLogin" style={{display:"flex", marginTop:"30px", width:"100%",alignItems:"center", justifyContent:"center"}}>
                         <button onClick={() => {
                             logar()
                         }} className="botaoLogin">
                             Logar
                         </button>
                     </div>
-                </div>
+                </div> 
+            </div>
+
+            {/* <div className="subContainer">
+                
+               
 
                
 
-            </div>
+            </div>*/}
 
             <Modal
                 msg={msgModal}

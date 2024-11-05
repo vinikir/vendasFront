@@ -30,6 +30,7 @@
     align-items: center;
     color: #fff;
     padding-left: 10px;
+    cursor: pointer;
 }   
 
 .abaSelecionada{
@@ -40,7 +41,7 @@
     align-items: center;
     color: #fff;
     padding-left: 10px;
-    border-left: solid #1519f1 5px;
+    border-left: solid #f0660a 5px;
     background-color: #3B3B3B;
 
 }

@@ -4,23 +4,32 @@ import "./entrada.css"
 import api from "../../connection/connection";
 import Modal from "../../components/modal/modal";
 import { useLocation, useParams } from 'react-router-dom';
+import { mascaraMoentaria } from "../../functions/funcoes";
 const Entrada = () => {
    
-    const [isChecked, setIsChecked] = useState(true);
-    const [produtoBuscar, setProdutoBuscar ] = useState("")
-    const [nome, setNome ] = useState("")
-    const [descricao, setDescricao ] = useState("")
-    const [valorCompra, setValorCompra ] = useState("")
-    const [descontoMaximo, setDescontoMaximo ] = useState(0)
-    const [margem, setMargem ] = useState("20")
-    const [qtd, setQtd ] = useState(0)
-    const [atualizacao, setAtualizacao] = useState(false)
+    const [ isChecked, setIsChecked ] = useState(true);
+    const [ produtoBuscar, setProdutoBuscar ] = useState("")
+    const [ nome, setNome ] = useState("")
+    const [ descricao, setDescricao ] = useState("")
+    const [ valorCompra, setValorCompra ] = useState("")
+    const [ descontoMaximo, setDescontoMaximo ] = useState(0)
+    const [ margem, setMargem ] = useState("60")
+    const [ qtd, setQtd ] = useState(0)
+    const [ atualizacao, setAtualizacao ] = useState(false)
+    const [ categoria, setCategoria ] = useState([])
+    const [ codigoBarras, setCodigodeBarras ] = useState("")
+    const [ SKU, setSku ] = useState("")
+    const [ Observacao, setObservacao ] = useState("")
+    const [ valorVenda, setValorVenda ] = useState("")
+    const [ c, setC ] = useState(false)
 
     const { id } = useParams(); 
 
     const location = useLocation();
    
     const pathnam = location.pathname
+
+    const arrayCategorias = ["Motor","Roda", "Carenagem"]
 
     useEffect(() => {
 
@@ -145,6 +154,29 @@ const Entrada = () => {
     };
 
     
+    const atualizaCategoria = (cat) => {
+        setCategoria(cat)
+        setC(!c)
+    }
+
+
+    const calculaValorDeVenda = () => {
+        let val = valorCompra.replace(",",".")
+        val = parseFloat(val)
+        const valorPOrcentagem = ( val * margem )/100
+        val = valorPOrcentagem + val
+        val = parseFloat(val).toFixed(2)
+        setValorVenda(val.toString().replace(".",","))
+    }
+
+    const calculaMargem = () => {
+        let num1 = parseFloat(valorCompra.replace(",", "."));
+        let num2 = parseFloat(valorVenda.replace(",", "."));
+
+        let percentageDifference = ((num2 - num1) / num1) * 100;
+        percentageDifference = percentageDifference.toFixed(2)
+        setMargem(percentageDifference.toString().replace(".",","))
+    }
 
     return (
         <div style={{ display:"flex"}}>
@@ -152,17 +184,22 @@ const Entrada = () => {
             <div className="containt">
                 <div className="sub-containt">
                     <div className="row">
+
                         <div className="divInput" >
+
                             <label>Buscar produto</label>
                             <input value={produtoBuscar} onChange={(el) => setProdutoBuscar(el.target.value)} className="inputLogin"/>
                             
                         </div>
-                        <div className="divInput" >
-                            <button>
+
+                        <div className="divInput" style={{marginTop:"10px"}} >
+
+                            <button className="botaoLogin" >
                                 Buscar
                             </button>
 
                         </div>
+
                     </div>
                     <div className="row">
                         <div className="divInput" >
@@ -179,6 +216,7 @@ const Entrada = () => {
                                     backgroundColor: isChecked ? '#4caf50' : '#ccc',
                                     cursor: 'pointer',
                                     transition: 'background-color 0.3s ease',
+                                    boxShadow:"1px 1px -20px -15px #000"
                                 }}
                             />
                         </div>
@@ -196,8 +234,43 @@ const Entrada = () => {
                         </div>
 
                         <div className="divInput" >
+
                             <label>Valor compra</label>
-                            <input value={valorCompra} onChange={(el) => setValorCompra(el.target.value)} className="inputLogin"/>
+
+                            <input value={valorCompra} 
+                                onBlur={() => {
+                                    calculaValorDeVenda()
+                                }} 
+                                onChange={(el) => { 
+                                    let valorConvertido = mascaraMoentaria(el.target.value)
+                                    setValorCompra(valorConvertido)
+                                }} 
+                                className="inputLogin"
+                            />
+
+                        </div>
+
+                        <div className="divInput" >
+                            <label>Margem %</label>
+                            <input value={margem} onChange={(el) => setMargem(el.target.value)} className="inputLogin"/>
+                        </div>
+
+                        
+
+                    </div>
+                    <div className="row">
+
+                        
+
+                        <div className="divInput" >
+                            <label>Valor venda</label>
+                            <input value={valorVenda} 
+                                onBlur={() => calculaMargem()} 
+                                onChange={(el) => { 
+                                    let valorConvertido = mascaraMoentaria(el.target.value)
+                                    setValorVenda(valorConvertido)
+                                }} 
+                                className="inputLogin"/>
                         </div>
 
                         <div className="divInput" >
@@ -205,24 +278,67 @@ const Entrada = () => {
                             <input value={descontoMaximo} onChange={(el) => setDescontoMaximo(el.target.value)} className="inputLogin"/>
                         </div>
 
-                    </div>
-                    <div className="row">
-
-                        <div className="divInput" >
-                            <label>Margem %</label>
-                            <input value={margem} onChange={(el) => setMargem(el.target.value)} className="inputLogin"/>
-                        </div>
-
                         <div className="divInput" >
                             <label>Quantidade</label>
                             <input value={qtd} onChange={(el) => setQtd(el.target.value)} className="inputLogin"/>
                         </div>
 
+                        <div className="divInput" >
+                            <label style={{marginTop:"0px"}}>Categoria</label>
+                            
+                            <div style={{display:"flex", flexDirection:"column", display:"flex", width:"100%", }}>
+                                <div className="divFakeInput">
+                                        {categoria.map((ca) => {return ca})}
+                                </div>
+                                <div style={{ backgroundColor:"red"}}>
+                                    <div className="divAgrupamentoOption">
+                                        {
+                                            arrayCategorias.map((ca) => {
+                                                console.log("categoria",categoria)
+                                                if(!categoria.includes(ca)){
+                                                    return <div className="divOption" onClick={() => {
+                                                        let c = categoria
+                                                        c.push(ca)
+                                                        atualizaCategoria(c)
+                                                    
+                                                    }}>{ca}</div>
+                                                }
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <select id="categorias" value={categoria} onChange={(el) => setCodigodeBarras(el.target.value)}  >
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </select> */}
+                        </div>
+
+                    </div>
+                    <div className="row">
+
+                        <div className="divInput" >
+                            <label>Codigo de barras</label>
+                            <input value={codigoBarras} onChange={(el) => setQtd(el.target.value)} className="inputLogin"/>
+                        </div>
+
+                        <div className="divInput" >
+                            <label>SKU</label>
+                            <input value={SKU} onChange={(el) => setSku(el.target.value)} className="inputLogin"/>
+                        </div>
+
+                        <div className="divInput" >
+                            <label>Observação</label>
+                            <input value={Observacao} onChange={(el) => setObservacao(el.target.value)} className="inputLogin"/>
+                        </div>
+
                     </div>
 
                     <div className="row">
                         <div className="divInput" >
-                            <button onClick={() => enviar()}>
+                            <button className="botaoLogin" onClick={() => enviar()}>
                                 Salvar
                             </button>
                         </div>

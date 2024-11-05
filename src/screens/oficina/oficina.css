@@ -34,20 +34,22 @@
 }
 
 .inputLogin{
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
-    border: 1px solid #fff;
+    background-color:#4a4a4a;
+    color: #fff;
+    border: 1px solid #707070;
     padding: 5px;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 10px;
 }
 
 .inputLogin:focus{
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 15px;
-    border-color: transparent;
+    background-color: #4a4a4a;
+    color: #fff;
+    border: 1px solid #707070;
+    outline: none;
+    /* Remover o contorno padrão */
+    box-shadow: none;
+    /*
+     Remover a sombra padrão */
 }
+

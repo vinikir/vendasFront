@@ -34,9 +34,9 @@
 }
 
 .inputLogin{
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
-    border: 1px solid #fff;
+    background-color:#4a4a4a;
+    color: #fff;
+    border: 1px solid #707070;
     padding: 5px;
     border-radius: 5px;
     font-size: 15px;
@@ -44,10 +44,53 @@
 }
 
 .inputLogin:focus{
-    background-color: rgba(255, 255, 255, 0.5);
-    color: black;
+    background-color:#4a4a4a;
+    color: #fff;
+    border: 1px solid #707070;
     padding: 5px;
     border-radius: 5px;
     font-size: 15px;
     border-color: transparent;
+}
+
+.divFakeInput{
+    height: 35px;
+    background-color:#4a4a4a;
+    color: #fff;
+    border: 1px solid #707070;
+    padding: 5px;
+    border-radius: 5px;
+    width:  100%;
+    height: 15px;
+    margin-top: 10px;
+    
+    
+}
+
+
+.divAgrupamentoOption{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 14%;
+    z-index: 999;
+    box-shadow: 10px 10px 10px -5px #000;
+    margin-bottom: 10px;
+}
+
+
+.divOption{
+    display: flex;
+    cursor: pointer;
+    background-color: #4a4a4a;
+    border: 1px solid #707070;
+    height: 25px;
+    align-items: center;
+    padding-left: 5px;
+
+}
+
+.divOption:hover{
+    cursor: pointer;
+    background-color: #707070;
 }
