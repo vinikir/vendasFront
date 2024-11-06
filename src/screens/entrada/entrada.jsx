@@ -17,6 +17,7 @@ const Entrada = () => {
     const [ qtd, setQtd ] = useState(0)
     const [ atualizacao, setAtualizacao ] = useState(false)
     const [ categoria, setCategoria ] = useState([])
+    // eslint-disable-next-line 
     const [ codigoBarras, setCodigodeBarras ] = useState("")
     const [ SKU, setSku ] = useState("")
     const [ Observacao, setObservacao ] = useState("")
@@ -286,7 +287,7 @@ const Entrada = () => {
                         <div className="divInput" >
                             <label style={{marginTop:"0px"}}>Categoria</label>
                             
-                            <div style={{display:"flex", flexDirection:"column", display:"flex", width:"100%", }}>
+                            <div style={{display:"flex", flexDirection:"column", width:"100%", }}>
                                 <div className="divFakeInput">
                                         {categoria.map((ca) => {return ca})}
                                 </div>
@@ -303,6 +304,7 @@ const Entrada = () => {
                                                     
                                                     }}>{ca}</div>
                                                 }
+                                                return
                                             })
                                         }
                                     </div>
