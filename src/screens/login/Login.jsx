@@ -48,7 +48,7 @@ const Login = () => {
                 <div style={{display:"flex", width:"70%", height:"60%",  alignItems:"center", justifyContent:"space-around", flexDirection:"column"}}>
                     <div className="divInputLogin">
 
-                        <label style={{fontSize:"30px"}}>Login</label>
+                        <label style={{fontSize:"30px"}}>Login 2</label>
                         <input value={login} className="inputLogin" onChange={(e) => setLogin(e.target.value)}  />
                     </div>
 
