@@ -1,7 +1,7 @@
 const Tes = () => {
     
     return (<div>
-        asdasd
+        asdasd asasd
     </div>)
 
 }
