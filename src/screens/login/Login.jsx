@@ -41,7 +41,11 @@ const Login = () => {
         <div className="container">
             <div className="containeE">
                 <div >
-                    <img src="/img/LogoSemFundo.png" alt="" width={300} height={300}/>
+                    <img src="/img/LogoSemFundo.png" alt="" width={400} height={400}/>
+                </div>
+
+                <div >
+                   <span style={{color:"#fff", fontSize:"60px"}}>G&M Moto Peças</span>
                 </div>
             </div>
             <div className="containeD">
