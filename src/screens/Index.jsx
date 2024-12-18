@@ -30,6 +30,7 @@ const Index = () => {
 
                 for (let index = 0; index < element.produtos.length; index++) {
                     const elementP = element.produtos[index];
+                    
                     if(elementP.tipo === "insumos"){
                         continue
                     }
@@ -38,8 +39,15 @@ const Index = () => {
                         elementP.tipo = "produto"
                     }
 
+                    if(typeof elementP.tipo == "undefined"){
+                        console.log("=========================")
+                        console.log("elementP",elementP)
+                        console.log("element",element)
+                        console.log("=========================")
+                    }
                     
                     if(typeof v[elementP.tipo] === "undefined"){
+                       
                         v[elementP.tipo] = 1
                     }else{
                         v[elementP.tipo] ++

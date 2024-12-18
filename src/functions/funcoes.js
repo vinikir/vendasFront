@@ -44,12 +44,31 @@ export const buscaVendas = async () => {
 }
 
 export const mascaraMoentaria =  (val) => {
-    let onlyDigits = val.replace(/\D/g, "");
 
-    // Converte para um número decimal com duas casas
+    let onlyDigits = val.replace(/\D/g, "");
+    
     let numericValue = (parseInt(onlyDigits, 10) / 100).toFixed(2);
 
-    // Substitui o ponto por vírgula
+    
     return numericValue.replace(".", ",");
 }
 
+
+export const mascaraMonetaria =  (val) => {
+
+    if (!val) return "0,00";
+
+    let normalizedValue = val.replace(",", ".");
+
+
+    let onlyDigits = normalizedValue.replace(/[^\d.]/g, "");
+
+    let numericValue = parseFloat(onlyDigits);
+
+    if (isNaN(numericValue)) return "0,00";
+    
+    return numericValue.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+}

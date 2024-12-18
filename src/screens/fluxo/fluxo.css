@@ -1,0 +1,16 @@
+
+.theadTH{
+    color: black;
+    background-color:rgb(12, 196, 165) ;
+    color: #fff;
+    height: 40px;
+    font-size: 20px;
+    border: 1px solid #cccccc;
+    
+}
+
+.tbodyTH{
+    color: black;
+    background-color:white ;
+    border: 1px solid #cccccc;
+}
