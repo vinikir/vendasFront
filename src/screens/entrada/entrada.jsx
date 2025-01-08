@@ -12,6 +12,7 @@ const Entrada = () => {
     const [ nome, setNome ] = useState("")
     const [ descricao, setDescricao ] = useState("")
     const [ valorCompra, setValorCompra ] = useState("")
+    const [ marca, setMarca ] = useState("")
     const [ descontoMaximo, setDescontoMaximo ] = useState(0)
     const [ margem, setMargem ] = useState("60")
     const [ qtd, setQtd ] = useState(0)
@@ -21,6 +22,7 @@ const Entrada = () => {
     const [ codigoBarras, setCodigodeBarras ] = useState("")
     const [ SKU, setSku ] = useState("")
     const [ Observacao, setObservacao ] = useState("")
+    const [ img, setImg ] = useState("")
     const [ valorVenda, setValorVenda ] = useState("")
     const [ c, setC ] = useState(false)
 
@@ -125,7 +127,8 @@ const Entrada = () => {
             margem,
             quantidade:qtd,
             tipo:"venda",
-            categoria:[]         
+            categoria:[],
+            marca:marca         
         }
 
         if(atualizacao){
@@ -338,6 +341,16 @@ const Entrada = () => {
                             <input value={Observacao} onChange={(el) => setObservacao(el.target.value)} className="inputLogin"/>
                         </div>
 
+                    </div>
+                    <div className="row">
+                        <div className="divInput" >
+                            <label>Marca</label>
+                            <input value={marca} onChange={(el) => setMarca(el.target.value)} className="inputLogin"/>
+                        </div>
+                        <div className="divInput" >
+                            <label>Imagem</label>
+                            <input value={img} onChange={(el) => setImg(el.target.value)} className="inputLogin"/>
+                        </div>
                     </div>
 
                     <div className="row">
