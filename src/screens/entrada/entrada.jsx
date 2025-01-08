@@ -128,7 +128,8 @@ const Entrada = () => {
             quantidade:qtd,
             tipo:"venda",
             categoria:[],
-            marca:marca         
+            marca:marca,
+            img:img         
         }
 
         if(atualizacao){
