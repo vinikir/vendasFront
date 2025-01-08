@@ -122,6 +122,9 @@ const Entrada = () => {
         let margemReplace = margem.replace(",",".")
         margemReplace = parseFloat(margemReplace)
 
+        let valorVendaReplace = valorVenda.replace(",",".")
+        valorVendaReplace = parseFloat(valorVendaReplace)
+
         let url = '/produto'
 
         let infos = {
@@ -135,7 +138,8 @@ const Entrada = () => {
             tipo:"venda",
             categoria:["Roda"],
             marca:marca,
-            img:img         
+            img:img,
+            valorVenda:valorVendaReplace        
         }
 
         if(atualizacao){
