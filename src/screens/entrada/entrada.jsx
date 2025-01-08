@@ -116,6 +116,9 @@ const Entrada = () => {
         let valorCompraReplace = valorCompra.replace(",",".")
         valorCompraReplace = parseFloat(valorCompraReplace)
 
+        let margemReplace = margem.replace(",",".")
+        margemReplace = parseFloat(margemReplace)
+
         let url = '/produto'
 
         let infos = {
@@ -124,7 +127,7 @@ const Entrada = () => {
             descricao,
             valorCompra:valorCompraReplace,
             descontoMaximo,
-            margem,
+            margem:margemReplace,
             quantidade:qtd,
             tipo:"venda",
             categoria:["Roda"],
