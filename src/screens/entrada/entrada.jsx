@@ -77,8 +77,11 @@ const Entrada = () => {
         setDescricao("")
         setValorCompra("")
         setDescontoMaximo("")
-        setMargem("20")
+        setMargem("60")
         setQtd("")
+        setValorVenda("")
+        setMarca("")
+        setImg("")
     }
 
     const enviar = () => {
