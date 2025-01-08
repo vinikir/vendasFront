@@ -127,7 +127,7 @@ const Entrada = () => {
             margem,
             quantidade:qtd,
             tipo:"venda",
-            categoria:[],
+            categoria:[""],
             marca:marca,
             img:img         
         }
