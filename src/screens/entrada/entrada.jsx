@@ -124,7 +124,8 @@ const Entrada = () => {
             descontoMaximo,
             margem,
             quantidade:qtd,
-            tipo:"venda"         
+            tipo:"venda",
+            categoria:[]         
         }
 
         if(atualizacao){
