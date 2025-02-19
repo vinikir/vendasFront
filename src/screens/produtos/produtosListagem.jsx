@@ -31,25 +31,27 @@ const Produtos = () => {
               
                 <div style={{ display:"flex", height: "100vh", width: '80%' }}>
                     
-                    <div style={{ display:"flex", height: "100vh", width: '100%', alignItems:"center", justifyContent:"center"  }}>
-                        <table>
-                            <thead>
-                                <tr>
+                    <div style={{ display:"flex", maxHeight: "100vh", width: '100%', justifyContent:"center", height:"90%", overflow:"auto", marginTop:20  }}>
+                        <table style={{marginTop:0, overflow:"auto"}} >
+                            <thead className="theadFluxo">
+                                <tr className="theadTR">
                                 
-                                    <th>Produto</th>
-                                    <th>Valor compra</th>
+                                    <th className="theadTH">Produto</th>
+                                    <th className="theadTH">Valor compra</th>
                                     {/* <th>Valor total compra</th> */}
-                                    <th>Valor venda</th>
+                                    <th className="theadTH">Valor venda</th>
                                     
-                                    <th>Quantidade</th>
-                                    <th>Ativo</th>
+                                    <th className="theadTH">Quantidade</th>
+                                    <th className="theadTH">Ativo</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     produtos.map((re) => {
-                                        
-
+                                        if(re.tipo != "venda" || re.estoque <= 0){
+                                            return
+                                        }
+                                        console.log(re)
 
                                         let valorV = `${re.valorVenda}`
                                         
@@ -72,23 +74,23 @@ const Produtos = () => {
 
                                         return(
                                             <tr onClick={() => atualizar(re._id)}>
-                                                <th>{re.nome}</th>
-                                                <th>{valorC}</th>
+                                                <th className="tbodyTH">{re.nome}</th>
+                                                <th className="tbodyTH">{valorC}</th>
                                                 {/* <th>{valorTotalCompraPorItem}</th> */}
-                                                <th>{valorV}</th>
+                                                <th className="tbodyTH">{valorV}</th>
                                                 
-                                                <th>{re.estoque}</th>
-                                                <th>{a}</th>
+                                                <th className="tbodyTH">{re.estoque}</th>
+                                                <th className="tbodyTH">{a}</th>
                                             </tr>
                                         )
                                     })
                                 }
                                 <tr >
-                                    <th>TOTAL</th>
-                                    <th>{parseFloat(totalValorCompra).toFixed(2).toString().replace(".",",")}</th>
-                                    <th>{parseFloat(totalValorVenda).toFixed(2).toString().replace(".",",")}</th>
-                                    <th>{qtdProdutos}</th>
-                                    <th></th>
+                                    <th className="tbodyTH">TOTAL</th>
+                                    <th className="tbodyTH">{parseFloat(totalValorCompra).toFixed(2).toString().replace(".",",")}</th>
+                                    <th className="tbodyTH">{parseFloat(totalValorVenda).toFixed(2).toString().replace(".",",")}</th>
+                                    <th className="tbodyTH">{qtdProdutos}</th>
+                                    <th className="tbodyTH"></th>
                                 </tr>
                             </tbody>
                         </table>

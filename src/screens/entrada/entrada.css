@@ -15,12 +15,33 @@
     align-items: start;
 }
 
-.row{
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
+.selectWrapper {
+    position: relative;  /* Necessário para o z-index funcionar */
+    z-index: 9999;
+    width: 100%;       /* Define a camada acima de outros elementos */
 }
-.sub-containt{
+
+.divInputEntrada {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    height: 60px; 
+    align-items: start;
+    
+}
+
+.rowDinamic {
+    display: flex;         /* Para alinhamento flexível */
+    flex-direction: row;   /* Direção das colunas dentro da row (padrão é 'row') */
+    align-items: flex-start; /* Alinha os itens no topo da linha */
+    justify-content: flex-start; /* Alinha os itens à esquerda */
+    height: auto;          /* Expande a altura automaticamente de acordo com o conteúdo */
+    padding: 10px;     
+    background-color: "red";
+}
+
+/* .sub-containt{
     background-color: rgb(73, 73, 74);
     margin-left: 10px;
     margin-top: 10px;
@@ -31,9 +52,53 @@
     flex-direction: column;
     border-radius: 5px;
    
+} */
+
+.selectLogin {
+    background-color: #4a4a4a;
+    color: #fff;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 10px;
+    width: 100%; 
+    height: 60px; 
+    
 }
 
-.inputLogin{
+.selectLogin option {
+    background-color: #4a4a4a; /* Fundo igual ao do select */
+    color: #fff;                /* Cor do texto */
+    padding: 5px;               /* Espaçamento interno */
+    font-size: 15px;            /* Tamanho da fonte */
+    border-radius: 5px;         /* Arredondamento das opções */
+    z-index: 9999;
+}
+
+.selectWrapper {
+    position: relative;  /* Necessário para o z-index funcionar */
+    z-index: 9999;       /* Define a camada acima de outros elementos */
+}
+
+/* Estilo de foco no select */
+.selectLogin:focus {
+    border-color: #fff;
+    outline: none;
+}
+
+/* Estilo de hover sobre as opções */
+.selectLogin option:hover {
+    background-color: #707070; /* Cor de fundo quando a opção for passada por cima */
+    cursor: pointer;           /* Cursor de mãozinha para indicar que é interativo */
+}
+
+/* Estilo de seleção de uma opção */
+.selectLogin option:checked {
+    background-color: #707070; /* Cor de fundo quando uma opção é selecionada */
+}
+
+
+.inputEntrada{
     background-color:#4a4a4a;
     color: #fff;
     border: 1px solid #707070;
@@ -43,7 +108,7 @@
     margin-top: 10px;
 }
 
-.inputLogin:focus{
+.inputEntrada:focus{
     background-color:#4a4a4a;
     color: #fff;
     border: 1px solid #707070;

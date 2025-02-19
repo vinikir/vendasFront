@@ -2,7 +2,7 @@ import api from "../connection/connection"
 
 export const buscaProdutos = async () => {
 
-    const res = await api.get("/produtos").then(res => {
+    const res = await api.get("/produtos?limit=9999").then(res => {
         if(typeof res.data != "undefined" && res.data.erro === false){
             return res.data.valor
         }
@@ -14,9 +14,11 @@ export const buscaProdutos = async () => {
     return res
 } 
 
-export const buscaFluxo = async () => {
 
-    const res = await api.get("/caixa").then(res => {
+
+export const buscaFluxo = async () => {
+   
+    const res = await api.get(`/caixa`).then(res => {
         if(typeof res.data != "undefined" && res.data.erro === false){
            
             return res.data.valor
@@ -29,8 +31,8 @@ export const buscaFluxo = async () => {
     return res
 } 
 
-export const buscaVendas = async () => {
-    const res = await api.get("/venda").then(res => {
+export const buscaVendas = async (dataInicial, dataFinal) => {
+    const res = await api.get(`/venda?inicial=${dataInicial}&final=${dataFinal}`).then(res => {
         
         if(typeof res.data != "undefined" && res.data.erro === false){
             return res.data.valor
