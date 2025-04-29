@@ -1,96 +1,103 @@
-.container{
+.containerLogin {
     display: flex;
-    background-color: #2B2B2B;
     height: 100vh;
     width: 100vw;
+    background-color: #1e1e1e;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
-.containeE{
+.leftLogin {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 50%;
     height: 100%;
+    background: linear-gradient(135deg, #f0660a, #ac4908);
+    color: white;
+    text-align: center;
+}
+
+.logoLogin {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.tituloEmpresa {
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.rightLogin {
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-}
-.containeD{
-    display: flex;
     width: 50%;
     height: 100%;
-    align-items: center;
-    justify-content: center;
-    background-color: #4a4a4a;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
+    background-color: #2b2b2b;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
-.subContainer{
+.formLogin {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    height: 80%;
-    width: 40%;
-    backdrop-filter: blur(10px); /* Aplica um desfoque de 10px */
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px rgba(128, 116, 116, 0.5);
+    gap: 25px;
+    width: 80%;
+    max-width: 400px;
+    background-color: #3a3a3a;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-.divInputLogin{
-    justify-content: center;
+.divInputLogin {
+    display: flex;
     flex-direction: column;
-    width: 100%;
+}
+
+.divInputLogin label {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #f0f0f0;
+}
+
+.inputLogin {
+    background-color: #2b2b2b;
     color: #fff;
-    font-size: 25px;
-}
-
-.divInput{
-    justify-content: center;
-    flex-direction: column;
-    padding: 10px;
-}
-
-.inputLogin{
-    background-color:#4a4a4a;
-    color: #fff;
-    border: 1px solid #707070;
+    border: 1px solid #666;
+    border-radius: 10px;
     padding: 15px;
-    border-radius: 15px;
-    font-size: 30px;
-    width: 100%;
-    height: 30px;
-}
-
-.inputLogin:focus{
-    background-color: #4a4a4a;
-    color: #fff;
-    border: 1px solid #707070;
+    font-size: 18px;
     outline: none;
+    transition: all 0.3s;
+}
+
+.inputLogin::placeholder {
+    color: #aaa;
+}
+
+.inputLogin:focus {
+    border-color: #f0660a;
+}
+
+.botaoLogin {
+    margin-top: 10px;
+    background-color: #f0660a;
+    color: white;
+    border: none;
     padding: 15px;
-    box-shadow: none;
-    width: 100%;
-    height: 30px;
-    font-size: 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: bold;
 }
 
-
-.botaoLogin{
-   height: 45px;
-   width:  120px;
-   background-color: #f0660a;
-   border-radius: 5px;
-   box-shadow: 2px 2px 2px rgb(80,80,80);
-   border-color: transparent;
-   color:#fff;
-   font-weight: bolder;
-   font-size: 20px;
-   
-
-}
-
-.botaoLogin:hover{
+.botaoLogin:hover {
     background-color: #ac4908;
 }

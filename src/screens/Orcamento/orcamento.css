@@ -1,0 +1,26 @@
+.containt{
+    
+    display: flex;
+    background-color: rgb(7, 4, 0);
+    width: 100%;
+    height: 100vh;
+
+}
+.sub-containt{
+    background-color: rgb(73, 73, 74);
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+   
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}

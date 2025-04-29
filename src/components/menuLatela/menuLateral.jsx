@@ -1,64 +1,36 @@
-import "./menuLateral.css"
+import "./menuLateral.css";
 
+const Menulateral = () => {
+  const urlAtual = window.location.pathname;
 
-const Menulateral = ({selecionado, callback}) => {
-    const urlLocal = window.location.pathname
-
-    const redirecionar = ( rota ) => {
-
-
-        if(rota === urlLocal){
-            return
-        }
-
-        window.location.href = rota
-        
+  const redirecionar = (rota) => {
+    if (rota !== urlAtual) {
+      window.location.href = rota;
     }
+  };
 
-    const abas = [
-        
-        {
-            id:2,
-            nome:"Entrada",
-            url:"/entrada"
-        },
-        {
-            id:3,
-            nome:"Produtos",
-            url:"/produtos"
-        },
-        {
-            id:4,
-            nome:"DashBoard",
-            url:"/index"
-        },
-        {
-            id:5,
-            nome:"Caixa",
-            url:"/fluxo"
-        }
-    ]
+  const abas = [
+    { id: 2, nome: "Entrada", url: "/entrada" },
+    { id: 3, nome: "Produtos", url: "/produtos" },
+    { id: 4, nome: "Dashboard", url: "/index" },
+    { id: 5, nome: "Caixa", url: "/fluxo" },
+  ];
 
+  return (
+    <aside className="container-menu">
+      <nav className="sub-container-menu">
+        {abas.map((el) => (
+          <div
+            key={el.id}
+            className={`aba ${el.url === urlAtual ? "abaSelecionada" : ""}`}
+            onClick={() => redirecionar(el.url)}
+          >
+            {el.nome}
+          </div>
+        ))}
+      </nav>
+    </aside>
+  );
+};
 
-    return (
-        <div className="container-menu">
-            <div className="sub-container-menu">
-                {
-                    abas.map((el, index) => {
-                        return(
-                            <div key={index.toString()} className={  el.url === urlLocal? "abaSelecionada" :  "aba" } onClick={() => {
-                                redirecionar(el.url)
-                            }}>
-                                {el.nome}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            
-        </div>
-    )
-
-}
-
-export default Menulateral
+export default Menulateral;

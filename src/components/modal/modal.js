@@ -1,7 +1,7 @@
 import './modal.css'
 
 const Modal = ({showModal, handleClose, msg}) => {
-    console.log(showModal)
+    
     if(showModal === true){
         return(
             <div className="modal-overlay">

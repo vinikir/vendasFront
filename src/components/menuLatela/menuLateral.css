@@ -1,47 +1,43 @@
-.container-menu{
+.container-menu {
+    width: 240px;
     height: 100vh;
-    width: 220px;
-    top:0;
-    flex-direction: column;
-    background-color: #2d2d2d;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-
-}
-
-.sub-container-menu{
-    height: 90vh;
-    width: 220px;
-/* background-color: blue; */
-    align-items: center;
+    background-color: #1e1e1e;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 30px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0; /* Impede o menu de encolher */
 }
 
 
-
-.aba{
+.sub-container-menu {
+    width: 100%;
     display: flex;
-    background-color: #2d2d2d;
-    height: 50px;
-    width: 90%;
-    margin-top: 5px;
-    align-items: center;
-    color: #fff;
-    padding-left: 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.aba {
+    padding: 15px 20px;
+    color: #dcdcdc;
     cursor: pointer;
-}   
+    transition: background-color 0.2s, color 0.2s, padding-left 0.2s;
+    font-size: 16px;
+    font-weight: 500;
+    border-left: 5px solid transparent;
+}
 
-.abaSelecionada{
-    display: flex;
-    height: 50px;
-    width: 90%;
-    margin-top: 5px;
-    align-items: center;
-    color: #fff;
-    padding-left: 10px;
-    border-left: solid #f0660a 5px;
-    background-color: #3B3B3B;
+.aba:hover {
+    background-color: #2e2e2e;
+    color: #f0660a;
+    padding-left: 25px;
+}
 
+.abaSelecionada {
+    background-color: #333;
+    color: #f0660a;
+    font-weight: bold;
+    border-left: 5px solid #f0660a;
+    padding-left: 25px;
 }

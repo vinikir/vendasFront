@@ -1,531 +1,431 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Menulateral from "../../components/menuLatela/menuLateral";
-import "./entrada.css"
-import api from "../../connection/connection";
 import Modal from "../../components/modal/modal";
-import { useLocation, useParams } from 'react-router-dom';
+import api from "../../connection/connection";
+import { useLocation, useParams } from "react-router-dom";
 import { mascaraMoentaria } from "../../functions/funcoes";
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+import "./entrada.css";
+
 const animatedComponents = makeAnimated();
+
+const arrayCategorias = ["Acessorio", "Cabo", "Carenagem", "Eletrica", "Eletronico", "Freio", "Motor", "Pneu", "Roda", "Suspensao"];
+const categoriaOptions = arrayCategorias.map((c) => ({ value: c, label: c }));
+
+const colourStyles = {
+    control: (styles) => ({ ...styles, backgroundColor: "#4a4a4a", color: "#fff", border: "1px solid #707070", fontSize: "15px" }),
+    option: (styles) => ({ ...styles, backgroundColor: "#707070", color: "#fff", cursor: "pointer" }),
+    multiValue: (styles) => ({ ...styles, backgroundColor: "#707070", color: "#fff" }),
+    multiValueLabel: (styles) => ({ ...styles, color: "#fff" }),
+    multiValueRemove: (styles) => ({
+        ...styles,
+        color: "red",
+        ":hover": { backgroundColor: "red", color: "white" },
+    }),
+};
+
 const Entrada = () => {
-
-    const colourStyles = {
-        control: (styles) => ({ ...styles, backgroundColor: "#4a4a4a", color: "#fff", border: "1px solid #707070", fontSize: "15px", marginTop: "10px", width: "100%", height: "auto" }),
-        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-            
-            return {
-                   ...styles,
-                backgroundColor: "#707070",
-       
-                color: "#fff",
-                cursor: "pointer",
-
-                ':active': {
-                    ...styles[':active'],
-                    backgroundColor: "#707070"
-                },
-            };
-        },
-        multiValue: (styles, { data }) => {
-            
-            return {
-                ...styles,
-                backgroundColor: "#707070",
-                color: "#fff",
-            };
-        },
-        multiValueLabel: (styles, { data }) => ({
-            ...styles,
-            backgroundColor: "#707070",
-            color: "#fff",
-        }),
-        multiValueRemove: (styles, { data }) => ({
-            ...styles,
-            color: "red",
-            ':hover': {
-                backgroundColor: data.color,
-                color: 'white',
-            },
-        }),
-    };
-
+    const [produtoBuscar, setProdutoBuscar] = useState("");
+    const [nome, setNome] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [valorCompra, setValorCompra] = useState("");
+    const [margem, setMargem] = useState("60");
+    const [valorVenda, setValorVenda] = useState("");
+    const [descontoMaximo, setDescontoMaximo] = useState("");
+    const [qtd, setQtd] = useState("");
     const [isChecked, setIsChecked] = useState(true);
-    const [produtoBuscar, setProdutoBuscar] = useState("")
-    const [nome, setNome] = useState("")
-    const [descricao, setDescricao] = useState("")
-    const [valorCompra, setValorCompra] = useState("")
-    const [marca, setMarca] = useState("")
-    const [descontoMaximo, setDescontoMaximo] = useState(0)
-    const [margem, setMargem] = useState("60")
-    const [qtd, setQtd] = useState(0)
-    const [atualizacao, setAtualizacao] = useState(false)
-    const [categoria, setCategoria] = useState([])
-    // eslint-disable-next-line 
-    const [codigoBarras, setCodigodeBarras] = useState("")
-    const [SKU, setSku] = useState("")
-    const [Observacao, setObservacao] = useState("")
-    const [img, setImg] = useState("")
-    const [valorVenda, setValorVenda] = useState("")
-    const [grupo, setGrupo] = useState("")
-    const [grupoBusca, setGrupoBusca] = useState("")
+    const [marca, setMarca] = useState("");
+    const [img, setImg] = useState("");
+    const [codigoBarras, setCodigodeBarras] = useState("");
+    const [SKU, setSku] = useState("");
+    const [Observacao, setObservacao] = useState("");
+    const [grupoBusca, setGrupoBusca] = useState("");
+    const [selectedValues, setSelectedValues] = useState([]);
 
-    const [c, setC] = useState(false)
+    const [atualizacao, setAtualizacao] = useState(false);
+    const [msg, setMsg] = useState("");
+    const [modalAberta, setModalAberta] = useState(false);
 
     const { id } = useParams();
-
     const location = useLocation();
 
-    const pathnam = location.pathname
-
-    const arrayCategorias = ["Acessorio", "Cabo","Carenagem", "Eletrica", "Eletronico", "Freio", "Motor", "Pneu", "Roda", "Suspensao"]
-
-    const options = arrayCategorias.map(ca => ({ value: ca, label: ca }));
-
     useEffect(() => {
-
-        if (pathnam.includes("produto/atualizar")) {
-
-            setAtualizacao(true)
-            buscaInfosproduto()
+        if (location.pathname.includes("produto/atualizar")) {
+            setAtualizacao(true);
+            buscaInfosproduto();
         }
-
-        // eslint-disable-next-line 
-    }, [pathnam])
+    }, [location.pathname]);
 
     const buscaInfosproduto = () => {
-        api.get("produtos?id=" + id).then(res => {
-            console.log(res.data.valor)
-            if (typeof res.data != "undefined" && typeof res.data.valor != "undefined" && typeof res.data.valor[0] != "undefined" && typeof res.data.valor[0]._id != "undefined") {
-
-                preencheFormulario(res.data.valor[0])
+        api.get("produtos?id=" + id).then((res) => {
+            const produto = res?.data?.valor?.[0];
+            if (produto?._id) {
+                preencherCampos(produto);
             }
-        })
-    }
-
-    let time
-
-    const buscaGrupos = (valor) => {
-        clearTimeout(time)
-        setGrupoBusca(valor)
-        try {
-            time = setTimeout(() => {
-                api.get("/grupoprodutos?busca=" + valor).then(res => {
-                    console.log(res.data.valor)
-
-                })
-            }, 3000)
-        } catch (e) {
-            console.log("e", e)
-        }
-
-
-
-
-    }
-
-    const preencheFormulario = (infos) => {
-
-        setIsChecked(infos.ativo)
-        setNome(infos.nome)
-        setDescricao(infos.descricao)
-        setValorCompra(`${infos.valorCompra}`)
-        setDescontoMaximo(infos.descontoMaximo != null ? infos.descontoMaximo : "")
-        setMargem(`${infos.margem}`)
-        setQtd(infos.estoque)
-    }
-
-
-
-
-    const [msg, setMsg] = useState("")
-    const [modalAberta, setModalAberta] = useState(false)
-
-    const limparFormulario = () => {
-        setNome("")
-        setDescricao("")
-        setValorCompra("")
-        setDescontoMaximo("")
-        setMargem("60")
-        setQtd("")
-        setValorVenda("")
-        setMarca("")
-        setImg("")
-    }
-
-    const enviar = () => {
-        
-        if (qtd <= 0) {
-            setMsg("Quantodade precisa ser maior que 0")
-            setModalAberta(true)
-        }
-
-        if (nome.trim() === "") {
-            setMsg("O nome é obrigatorio")
-            setModalAberta(true)
-        }
-
-        if (valorCompra.trim() === "") {
-            setMsg("O valor de compra é obrigatorio")
-            setModalAberta(true)
-        }
-
-        if (margem.trim() === "" || margem === 0) {
-            setMsg("A margem é obrigatoria")
-            setModalAberta(true)
-        }
-
-        if (margem <= 10) {
-            setMsg("Valor da margem menor que o limite de 10%")
-            setModalAberta(true)
-        }
-
-        if (descontoMaximo > 20) {
-            setMsg("Valor da margem menor que o limite de 10%")
-            setModalAberta(true)
-        }
-
-        let valorCompraReplace = valorCompra.replace(",", ".")
-        valorCompraReplace = parseFloat(valorCompraReplace)
-
-        let margemReplace = margem.replace(",", ".")
-        margemReplace = parseFloat(margemReplace)
-
-        let valorVendaReplace = valorVenda.replace(",", ".")
-        valorVendaReplace = parseFloat(valorVendaReplace)
-        
-        let url = '/produto'
-
-        let infos = {
-            ativo: isChecked,
-            nome: nome,
-            descricao,
-            valorCompra: valorCompraReplace,
-            descontoMaximo,
-            margem: margemReplace,
-            quantidade: qtd,
-            tipo: "venda",
-            categoria: selectedValues,
-            marca: marca,
-            img: img,
-            valorVenda: valorVendaReplace
-        }
-
-        if (atualizacao) {
-            url = url + "/atualizar"
-            infos.id = id
-        }
-
-        // console.log(infos)
-        // return
-
-        api.post(url, infos).then(re => {
-
-            if (typeof re.data != "undefined" && typeof re.data.valor != "undefined" && (typeof re.data.valor._id != "undefined" || typeof re.data.valor.modifiedCount != "undefined")) {
-
-                if (atualizacao) {
-                    return window.location.href = "/produtos"
-                }
-                setMsg("Entrada realizada com sucesso")
-                setModalAberta(true)
-                limparFormulario()
-            }
-            
-        })
-    }
-
-    const handleChange = (event) => {
-        setIsChecked(event.target.checked);
+        });
     };
 
+    const preencherCampos = (produto) => {
+        setIsChecked(produto.ativo);
+        setNome(produto.nome);
+        setDescricao(produto.descricao);
+        setValorCompra(`${produto.valorCompra}`);
+        setDescontoMaximo(produto.descontoMaximo ?? "");
+        setMargem(`${produto.margem}`);
+        setQtd(produto.estoque);
+        setValorVenda(produto.valorVenda?.toString().replace(".", ",") || "");
+        setMarca(produto.marca || "");
+        setImg(produto.img || "");
+        setSelectedValues(produto.categoria?.map((c) => ({ label: c, value: c })) || []);
+    };
 
-    const atualizaCategoria = (cat) => {
-        setCategoria(cat)
-        setC(!c)
-    }
+    const buscaGrupos = useCallback((valor) => {
+        setGrupoBusca(valor);
+        if (!valor) return;
 
+        clearTimeout(buscaGrupos.timer);
+        buscaGrupos.timer = setTimeout(() => {
+            api.get("/grupoprodutos?busca=" + valor).then((res) => {
+                console.log(res.data.valor);
+            });
+        }, 500);
+    }, []);
+
+    const limparFormulario = () => {
+        setNome("");
+        setDescricao("");
+        setValorCompra("");
+        setDescontoMaximo("");
+        setMargem("60");
+        setQtd("");
+        setValorVenda("");
+        setMarca("");
+        setImg("");
+        setSelectedValues([]);
+    };
 
     const calculaValorDeVenda = () => {
-        let val = valorCompra.replace(",", ".")
-        val = parseFloat(val)
-        const valorPOrcentagem = (val * margem) / 100
-        val = valorPOrcentagem + val
-        val = parseFloat(val).toFixed(2)
-        setValorVenda(val.toString().replace(".", ","))
-    }
+        const compra = parseFloat(valorCompra.replace(",", "."));
+        const margemPerc = parseFloat(margem.replace(",", "."));
+        if (isNaN(compra) || isNaN(margemPerc)) return;
+
+        const venda = ((compra * margemPerc) / 100 + compra).toFixed(2).replace(".", ",");
+        setValorVenda(venda);
+    };
 
     const calculaMargem = () => {
-        let num1 = parseFloat(valorCompra.replace(",", "."));
-        let num2 = parseFloat(valorVenda.replace(",", "."));
+        const compra = parseFloat(valorCompra.replace(",", "."));
+        const venda = parseFloat(valorVenda.replace(",", "."));
+        if (isNaN(compra) || isNaN(venda)) return;
 
-        let percentageDifference = ((num2 - num1) / num1) * 100;
-        percentageDifference = percentageDifference.toFixed(2)
-        setMargem(percentageDifference.toString().replace(".", ","))
-    }
+        const margemCalc = (((venda - compra) / compra) * 100).toFixed(2).replace(".", ",");
+        setMargem(margemCalc);
+    };
 
-    const removecategoria = (index) => {
+    const validarFormulario = () => {
+        if (!nome.trim()) return "O nome é obrigatório";
+        if (!valorCompra.trim()) return "O valor de compra é obrigatório";
+        if (!margem.trim() || parseFloat(margem.replace(",", ".")) <= 10) return "Margem deve ser maior que 10%";
+        if (descontoMaximo > 20) return "Desconto máximo não pode ser maior que 20%";
+        if (qtd <= 0) return "Quantidade precisa ser maior que 0";
+        return null;
+    };
 
-        let cat = [...categoria];
-        cat.splice(index, 1);
+    const enviar = () => {
+        const erro = validarFormulario();
+        if (erro) {
+            setMsg(erro);
+            setModalAberta(true);
+            return;
+        }
 
-        setCategoria(cat)
-    }
+        const infos = {
+            ativo: isChecked,
+            nome,
+            descricao,
+            valorCompra: parseFloat(valorCompra.replace(",", ".")),
+            descontoMaximo,
+            margem: parseFloat(margem.replace(",", ".")),
+            quantidade: qtd,
+            tipo: "venda",
+            categoria: selectedValues.map((v) => v.value),
+            marca,
+            img,
+            valorVenda: parseFloat(valorVenda.replace(",", ".")),
+        };
 
-    const [selectedValues, setSelectedValues] = useState([]);  
+        let url = "/produto";
+        if (atualizacao) {
+            url += "/atualizar";
+            infos.id = id;
+        }
 
-    const handleSelectChange = (e) => {
-
-        const options = e
-        const values = Array.from(options).map(option => option.value);
-
-        setSelectedValues(values);
+        api.post(url, infos).then((res) => {
+            const sucesso = res.data?.valor?._id || res.data?.valor?.modifiedCount;
+            if (sucesso) {
+                if (atualizacao) return (window.location.href = "/produtos");
+                setMsg("Produto salvo com sucesso!");
+                setModalAberta(true);
+                limparFormulario();
+            }
+        });
     };
 
     return (
-        <div style={{ display: "flex" }}>
+        <div className="page-container">
             <Menulateral />
-            <div className="containt">
-                <div className="sub-containt">
-                    <div className="row">
+            <div className="content-wrapper">
+                <div className="form-card">
+                    <h1 className="form-title">Cadastro de Produto</h1>
 
-                        <div className="divInput" >
-
-                            <label>Buscar produto</label>
-                            <input value={produtoBuscar} onChange={(el) => setProdutoBuscar(el.target.value)} className="inputEntrada" />
-
-                        </div>
-
-                        <div className="divInput" style={{ marginTop: "10px" }} >
-
-                            <button className="botaoLogin" >
-                                Buscar
-                            </button>
-
-                        </div>
-
-                    </div>
-                    <div className="row">
-                        <div className="divInput" >
-                            <label>Ativo</label>
-                            <input
-                                type="checkbox"
-                                checked={isChecked}
-                                onChange={handleChange}
-                                style={{
-                                    width: 15,
-                                    height: 20,
-                                    borderRadius: 50,
-                                    appearance: 'none',
-                                    backgroundColor: isChecked ? '#4caf50' : '#ccc',
-                                    cursor: 'pointer',
-                                    transition: 'background-color 0.3s ease',
-                                    boxShadow: "1px 1px -20px -15px #000"
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="row">
-
-                        <div className="divInput" >
-                            <label>Nome</label>
-                            <input value={nome} onChange={(el) => setNome(el.target.value)} className="inputEntrada" />
-                        </div>
-
-                        <div className="divInput" >
-                            <label>Descricao</label>
-                            <input value={descricao} onChange={(el) => setDescricao(el.target.value)} className="inputEntrada" />
-                        </div>
-
-                        <div className="divInput" >
-
-                            <label>Valor compra</label>
-
-                            <input value={valorCompra}
-                                onBlur={() => {
-                                    calculaValorDeVenda()
-                                }}
-                                onChange={(el) => {
-                                    let valorConvertido = mascaraMoentaria(el.target.value)
-                                    setValorCompra(valorConvertido)
-                                }}
-                                className="inputEntrada"
-                            />
-
-                        </div>
-
-                        <div className="divInput" >
-                            <label>Margem %</label>
-                            <input value={margem} onChange={(el) => setMargem(el.target.value)} className="inputEntrada" />
-                        </div>
-
-
-
-                    </div>
-                    <div className="rowDinamic">
-
-                        <div className="divInput" >
-                            <label>Valor venda</label>
-                            <input value={valorVenda}
-                                onBlur={() => calculaMargem()}
-                                onChange={(el) => {
-                                    let valorConvertido = mascaraMoentaria(el.target.value)
-                                    setValorVenda(valorConvertido)
-                                }}
-                                className="inputEntrada" />
-                        </div>
-
-                        <div className="divInput" >
-                            <label>Desconto maximo %</label>
-                            <input value={descontoMaximo} onChange={(el) => setDescontoMaximo(el.target.value)} className="inputEntrada" />
-                        </div>
-
-                        <div className="divInput" >
-                            <label>Quantidade</label>
-                            <input value={qtd} onChange={(el) => setQtd(el.target.value)} className="inputEntrada" />
-                        </div>
-
-                        <div className="divInputEntrada" >
-                            <label style={{ marginTop: "0px" }}>Categoria</label>
-                            <div style={{ width:"100%"}}>
-                                <Select
-                                    options={options}
-                                    value={ options.filter( ( option )   => selectedValues.includes(option.value))}
-                                    onChange={handleSelectChange}
-                                    isMulti={true} // Para permitir múltiplas seleções
-                                    styles={colourStyles}
-                                    components={animatedComponents}
+                    <div className="form-grid">
+                        {/* SEÇÃO DE BUSCA */}
+                        <div className="search-section">
+                            <div className="input-group">
+                                <input
+                                    value={produtoBuscar}
+                                    onChange={e => setProdutoBuscar(e.target.value)}
+                                    className="form-input"
+                                    placeholder="Digite o nome do produto..."
                                 />
+                                <button className="search-button">
+                                    <i className="fas fa-search"></i> Buscar
+                                </button>
                             </div>
-                          
-                            {/* <div  className="selectWrapper">
-                                <select
-                                    id="multi-select"
-                                    //multiple
-                                    value={selectedValues}
-                                    onChange={handleSelectChange}
-                                    className="selectLogin"
-                                
-                                >
-                                    <option value=""></option>
-                                        {
-                                        arrayCategorias.map((ca, index) => {
-                                            return (
-                                                <option key={index} value={ca}>{ca}</option>
-                                            )
-                                        })
-                                    }
+                        </div>
 
-                                </select>
-                            </div> */}
-
-
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-
-
-                                {/* <div className="divFakeInput">
-                                        {categoria.map((ca, index) => {
-                                            return (
-                                                <div style={{display:"inline-block", marginTop:"-5px", marginLeft:"1.5px", marginRight:"1.5px", padding:"5px",  fontSize:"10px", borderRadius:"5px", border:"0.2px solid rgb(555,555,555)"}}>
-                                                    <div>
-                                                        {ca}
-                                                        <span style={{marginLeft:"10px", cursor:"pointer"}} onClick={() => removecategoria(index)}>
-                                                            X
-                                                        </span>
-                                                    </div>
-                                                    
-                                                </div>
-                                            )
-                                        })}
+                        {/* SEÇÃO DE INFORMAÇÕES BÁSICAS */}
+                        <div className="form-section">
+                            <h2 className="section-title">Informações Básicas</h2>
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">Nome do Produto*</label>
+                                    <input
+                                        value={nome}
+                                        onChange={e => setNome(e.target.value)}
+                                        className="form-input"
+                                        placeholder="Ex: Lampada LED"
+                                    />
                                 </div>
-                                <div style={{ backgroundColor:"red"}}>
-                                    <div className="divAgrupamentoOption">
-                                        {
-                                            arrayCategorias.map((ca) => {
-                                                
-                                                if(!categoria.includes(ca)){
-                                                    return <div className="divOption" onClick={() => {
-                                                        let c = categoria
-                                                        c.push(ca)
-                                                        atualizaCategoria(c)
-                                                    
-                                                    }}>{ca}</div>
-                                                }
-                                                // eslint-disable-next-line 
-                                                return
-                                            })
-                                        }
-                                    </div>
-                                </div> */}
+
+                                <div className="form-group">
+                                    <label className="form-label">Descrição</label>
+                                    <textarea
+                                        value={descricao}
+                                        onChange={e => setDescricao(e.target.value)}
+                                        className="form-input"
+                                        rows="3"
+                                        placeholder="Descreva o produto..."
+                                    />
+                                </div>
+
+                                <div className="form-group switch-group">
+                                    <label className="form-label">Status do Produto</label>
+                                    <label className="switch">
+                                        <input
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            onChange={e => setIsChecked(e.target.checked)}
+                                        />
+                                        <span className="slider round"></span>
+                                    </label>
+                                    <span className="switch-label">{isChecked ? "Ativo" : "Inativo"}</span>
+                                </div>
                             </div>
-                            {/* <select id="categorias" value={categoria} onChange={(el) => setCodigodeBarras(el.target.value)}  >
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
-                            </select> */}
                         </div>
 
-                    </div>
-                    <div className="row">
+                        {/* SEÇÃO DE PREÇOS */}
+                        <div className="form-section">
+                            <h2 className="section-title">Preços e Margens</h2>
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">Valor de Compra*</label>
+                                    <div className="input-with-icon">
+                                        <span className="currency-symbol">R$</span>
+                                        <input
+                                            value={valorCompra}
+                                            onBlur={calculaValorDeVenda}
+                                            onChange={e => setValorCompra(mascaraMoentaria(e.target.value))}
+                                            className="form-input"
+                                            placeholder="0,00"
+                                        />
+                                    </div>
+                                </div>
 
-                        <div className="divInput" >
-                            <label>Codigo de barras</label>
-                            <input value={codigoBarras} onChange={(el) => setQtd(el.target.value)} className="inputEntrada" />
+                                <div className="form-group">
+                                    <label className="form-label">Margem de Lucro (%)*</label>
+                                    <div className="input-with-icon">
+                                        <input
+                                            value={margem}
+                                            onChange={e => setMargem(e.target.value)}
+                                            className="form-input"
+                                            placeholder="Ex: 30"
+                                        />
+                                        <span className="percentage-symbol">%</span>
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Valor de Venda*</label>
+                                    <div className="input-with-icon">
+                                        <span className="currency-symbol">R$</span>
+                                        <input
+                                            value={valorVenda}
+                                            onBlur={calculaMargem}
+                                            onChange={e => setValorVenda(mascaraMoentaria(e.target.value))}
+                                            className="form-input"
+                                            placeholder="0,00"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Desconto Máximo (%)</label>
+                                    <div className="input-with-icon">
+                                        <input
+                                            value={descontoMaximo}
+                                            onChange={e => setDescontoMaximo(e.target.value)}
+                                            className="form-input"
+                                            placeholder="Ex: 10"
+                                        />
+                                        <span className="percentage-symbol">%</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="divInput" >
-                            <label>SKU</label>
-                            <input value={SKU} onChange={(el) => setSku(el.target.value)} className="inputEntrada" />
+                        {/* SEÇÃO DE ESTOQUE */}
+                        <div className="form-section">
+                            <h2 className="section-title">Estoque</h2>
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">Quantidade em Estoque*</label>
+                                    <input
+                                        value={qtd}
+                                        onChange={e => setQtd(e.target.value)}
+                                        className="form-input"
+                                        type="number"
+                                        min="0"
+                                        placeholder="Ex: 100"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">SKU*</label>
+                                    <input
+                                        value={SKU}
+                                        onChange={e => setSku(e.target.value)}
+                                        className="form-input"
+                                        placeholder="Código único do produto"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Código de Barras</label>
+                                    <input
+                                        value={codigoBarras}
+                                        onChange={e => setCodigodeBarras(e.target.value)}
+                                        className="form-input"
+                                        placeholder="Digite ou escaneie o código"
+                                    />
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="divInput" >
-                            <label>Observação</label>
-                            <input value={Observacao} onChange={(el) => setObservacao(el.target.value)} className="inputEntrada" />
+                        {/* SEÇÃO DE CATEGORIZAÇÃO */}
+                        <div className="form-section">
+                            <h2 className="section-title">Categorização</h2>
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">Categoria(s)*</label>
+                                    <Select
+                                        options={categoriaOptions}
+                                        value={selectedValues}
+                                        onChange={setSelectedValues}
+                                        isMulti
+                                        styles={colourStyles}
+                                        components={animatedComponents}
+                                        className="react-select-container"
+                                        classNamePrefix="react-select"
+                                        placeholder="Selecione as categorias..."
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Marca</label>
+                                    <input
+                                        value={marca}
+                                        onChange={e => setMarca(e.target.value)}
+                                        className="form-input"
+                                        placeholder="Ex: Apple, Samsung"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Grupo</label>
+                                    <input
+                                        value={grupoBusca}
+                                        onChange={e => buscaGrupos(e.target.value)}
+                                        className="form-input"
+                                        placeholder="Buscar grupo..."
+                                    />
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
-                    <div className="row">
-                        <div className="divInput" >
-                            <label>Marca</label>
-                            <input value={marca} onChange={(el) => setMarca(el.target.value)} className="inputEntrada" />
+                        {/* SEÇÃO ADICIONAL */}
+                        <div className="form-section">
+                            <h2 className="section-title">Informações Adicionais</h2>
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">Imagem do Produto (URL)</label>
+                                    <input
+                                        value={img}
+                                        onChange={e => setImg(e.target.value)}
+                                        className="form-input"
+                                        placeholder="Cole a URL da imagem..."
+                                    />
+                                    {img && (
+                                        <div className="image-preview">
+                                            <img src={img} alt="Preview" onError={(e) => e.target.style.display = 'none'} />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Observações</label>
+                                    <textarea
+                                        value={Observacao}
+                                        onChange={e => setObservacao(e.target.value)}
+                                        className="form-input"
+                                        rows="3"
+                                        placeholder="Notas internas sobre o produto..."
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="divInput" >
-                            <label>Imagem</label>
-                            <input value={img} onChange={(el) => setImg(el.target.value)} className="inputEntrada" />
-                        </div>
-                        <div className="divInput" >
 
-                            <label>Grupo</label>
-
-                            <input value={grupoBusca} onChange={(el) => buscaGrupos(el.target.value)} className="inputEntrada" />
-
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="divInput" >
-                            <button className="botaoLogin" onClick={() => enviar()}>
-                                Salvar
+                        {/* BOTÕES DE AÇÃO */}
+                        <div className="form-actions">
+                            <button className="secondary-button">
+                                <i className="fas fa-times"></i> Cancelar
+                            </button>
+                            <button className="primary-button" onClick={enviar}>
+                                <i className="fas fa-save"></i> Salvar Produto
                             </button>
                         </div>
                     </div>
-
-
                 </div>
 
-                <div>
-
-                </div>
-
+                <Modal
+                    showModal={modalAberta}
+                    handleClose={() => setModalAberta(false)}
+                    msg={msg}
+                />
             </div>
-            <Modal
-                showModal={modalAberta}
-                handleClose={() => setModalAberta(false)}
-                msg={msg}
-            />
         </div>
-    )
+    );
+};
 
-}
-
-export default Entrada
+export default Entrada;

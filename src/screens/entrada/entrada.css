@@ -1,161 +1,415 @@
-.containt{
-    
+/* Variáveis de cores e estilos - Tema Escuro */
+:root {
+    --primary-color: #f0660a; /* Laranja para ações primárias */
+    --primary-hover: #d45a09;
+    --secondary-color: #555555;
+    --secondary-hover: #666666;
+    --success-color: #4bb543;
+    --danger-color: #f44336;
+    --text-color: #f0f0f0; /* Texto claro */
+    --text-light: #bbbbbb;
+    --bg-color: #222222; /* Fundo mais escuro que #333 */
+    --card-color: #333333; /* Cor do card */
+    --border-color: #444444;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Reset e estilos base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  /* Layout principal */
+  .page-container {
     display: flex;
-    background-color: rgb(7, 4, 0);
-    width: 100%;
-    height: 100vh;
-
-}
-.divInput{
-    width: 20%;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+  }
+  
+  .content-wrapper {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+  }
+  
+  .form-card {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+  }
+  
+  .form-title {
+    color: var(--text-color);
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+  }
+  
+  /* Grid do formulário */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .form-section {
+    grid-column: span 1;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 500;
     display: flex;
-    flex-direction:column; 
-    color:#fff;
-    height: 40px;
-    align-items: start;
-}
-
-.selectWrapper {
-    position: relative;  /* Necessário para o z-index funcionar */
-    z-index: 9999;
-    width: 100%;       /* Define a camada acima de outros elementos */
-}
-
-.divInputEntrada {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    height: 60px; 
-    align-items: start;
-    
-}
-
-.rowDinamic {
-    display: flex;         /* Para alinhamento flexível */
-    flex-direction: row;   /* Direção das colunas dentro da row (padrão é 'row') */
-    align-items: flex-start; /* Alinha os itens no topo da linha */
-    justify-content: flex-start; /* Alinha os itens à esquerda */
-    height: auto;          /* Expande a altura automaticamente de acordo com o conteúdo */
-    padding: 10px;     
-    background-color: "red";
-}
-
-/* .sub-containt{
-    background-color: rgb(73, 73, 74);
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-   
-} */
-
-.selectLogin {
-    background-color: #4a4a4a;
-    color: #fff;
-    border: 1px solid #707070;
-    border-radius: 5px;
-    font-size: 15px;
-    margin-top: 10px;
-    width: 100%; 
-    height: 60px; 
-    
-}
-
-.selectLogin option {
-    background-color: #4a4a4a; /* Fundo igual ao do select */
-    color: #fff;                /* Cor do texto */
-    padding: 5px;               /* Espaçamento interno */
-    font-size: 15px;            /* Tamanho da fonte */
-    border-radius: 5px;         /* Arredondamento das opções */
-    z-index: 9999;
-}
-
-.selectWrapper {
-    position: relative;  /* Necessário para o z-index funcionar */
-    z-index: 9999;       /* Define a camada acima de outros elementos */
-}
-
-/* Estilo de foco no select */
-.selectLogin:focus {
-    border-color: #fff;
-    outline: none;
-}
-
-/* Estilo de hover sobre as opções */
-.selectLogin option:hover {
-    background-color: #707070; /* Cor de fundo quando a opção for passada por cima */
-    cursor: pointer;           /* Cursor de mãozinha para indicar que é interativo */
-}
-
-/* Estilo de seleção de uma opção */
-.selectLogin option:checked {
-    background-color: #707070; /* Cor de fundo quando uma opção é selecionada */
-}
-
-
-.inputEntrada{
-    background-color:#4a4a4a;
-    color: #fff;
-    border: 1px solid #707070;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 15px;
-    margin-top: 10px;
-}
-
-.inputEntrada:focus{
-    background-color:#4a4a4a;
-    color: #fff;
-    border: 1px solid #707070;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 15px;
-    border-color: transparent;
-}
-
-.divFakeInput{
-    height: 35px;
-    background-color:#4a4a4a;
-    color: #fff;
-    border: 1px solid #707070;
-    padding: 5px;
-    border-radius: 5px;
-    width:  100%;
-    height: 15px;
-    margin-top: 10px;
-    
-    
-}
-
-
-.divAgrupamentoOption{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    width: 14%;
-    z-index: 999;
-    box-shadow: 10px 10px 10px -5px #000;
-    margin-bottom: 10px;
-}
-
-
-.divOption{
-    display: flex;
-    cursor: pointer;
-    background-color: #4a4a4a;
-    border: 1px solid #707070;
-    height: 25px;
     align-items: center;
-    padding-left: 5px;
-
-}
-
-.divOption:hover{
+  }
+  
+  .section-title:before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 1.25rem;
+    background-color: var(--primary-color);
+    margin-right: 0.75rem;
+  }
+  
+  .section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Grupos de formulário */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-label {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+  
+  .form-label:after {
+    content: "*";
+    color: var(--danger-color);
+    margin-left: 0.25rem;
+    display: none;
+  }
+  
+  .form-group.required .form-label:after {
+    display: inline;
+  }
+  
+  /* Inputs */
+  .form-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    background-color: #444444;
+    color: var(--text-color);
+  }
+  
+  .form-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(240, 102, 10, 0.3);
+  }
+  
+  .form-input::placeholder {
+    color: var(--text-light);
+  }
+  
+  textarea.form-input {
+    min-height: 80px;
+    resize: vertical;
+  }
+  
+  /* Inputs com ícones */
+  .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-icon .form-input {
+    padding-left: 2rem;
+  }
+  
+  .currency-symbol,
+  .percentage-symbol {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+  
+  .percentage-symbol {
+    left: auto;
+    right: 1rem;
+  }
+  
+  /* Seção de busca */
+  .search-section {
+    grid-column: 1 / -1;
+    margin-bottom: 1rem;
+  }
+  
+  .input-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .search-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
     cursor: pointer;
-    background-color: #707070;
-}
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .search-button:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  /* Switch */
+  .switch-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #666666;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  .switch input:checked + .slider {
+    background-color: var(--success-color);
+  }
+  
+  .switch input:checked + .slider:before {
+    transform: translateX(24px);
+  }
+  
+  .switch-label {
+    font-size: 0.875rem;
+    color: var(--text-color);
+  }
+  
+  /* Preview de imagem */
+  .image-preview {
+    margin-top: 0.5rem;
+  }
+  
+  .image-preview img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+  
+  /* Botões de ação */
+  .form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .primary-button:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .secondary-button {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .secondary-button:hover {
+    background-color: var(--secondary-hover);
+  }
+  
+  /* Customização do React Select */
+  .react-select-container {
+    font-size: 0.875rem;
+  }
+  
+  .react-select__control {
+    min-height: 42px !important;
+    border-color: var(--border-color) !important;
+    background-color: #444444 !important;
+  }
+  
+  .react-select__control--is-focused {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 1px var(--primary-color) !important;
+  }
+  
+  .react-select__single-value {
+    color: var(--text-color) !important;
+  }
+  
+  .react-select__placeholder {
+    color: var(--text-light) !important;
+  }
+  
+  .react-select__input-container input {
+    color: var(--text-color) !important;
+  }
+  
+  .react-select__menu {
+    background-color: #444444 !important;
+    border: 1px solid var(--border-color) !important;
+  }
+  
+  .react-select__option {
+    background-color: #444444 !important;
+    color: var(--text-color) !important;
+  }
+  
+  .react-select__option--is-focused {
+    background-color: #555555 !important;
+  }
+  
+  .react-select__option--is-selected {
+    background-color: var(--primary-color) !important;
+  }
+  
+  .react-select__multi-value {
+    background-color: #555555 !important;
+    border-radius: 4px !important;
+  }
+  
+  .react-select__multi-value__label {
+    color: var(--text-color) !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .react-select__multi-value__remove:hover {
+    background-color: #666666 !important;
+    color: var(--text-color) !important;
+  }
+  
+  .react-select__indicator-separator {
+    background-color: var(--border-color) !important;
+  }
+  
+  .react-select__dropdown-indicator {
+    color: var(--text-light) !important;
+  }
+  
+  .react-select__dropdown-indicator:hover {
+    color: var(--text-color) !important;
+  }
+  
+  /* Ícones (usando Font Awesome) */
+  .fas {
+    font-size: 0.875rem;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 1rem;
+    }
+    
+    .form-card {
+      padding: 1.5rem;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .primary-button,
+    .secondary-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
