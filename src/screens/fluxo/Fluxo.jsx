@@ -1,139 +1,129 @@
-import React, { useEffect, useState, useRef } from "react"
-import Menulateral from "../../components/menuLatela/menuLateral"
-import { buscaFluxo } from "../../functions/funcoes"
-import "./fluxo.css"
+import React, { useEffect, useState, useRef } from "react";
+import Menulateral from "../../components/menuLatela/menuLateral";
+import { buscaFluxo, mascaraMonetaria } from "../../functions/funcoes";
+import "./fluxo.css";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import moment from "moment";
 
-import { mascaraMonetaria } from "../../functions/funcoes";
-
-
 const Fluxo = () => {
-
     const tableRef = useRef(null);
-
-    const [ produtos, setProdutos] = useState([[]])
-    // eslint-disable-next-line 
-    const [ index, setIndex] = useState(0)
+    const [produtos, setProdutos] = useState([[]]);
+    // eslint-disable-next-line
+    const [index, setIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const generatePDF = () => {
-
-    
-
         const doc = new jsPDF();
-    
-        doc.text("Relatorio fluxo de caixa 2024", 14, 15);
-    
+        doc.text("Relatório de Fluxo de Caixa - 2024", 14, 15);
+
         if (tableRef.current) {
             autoTable(doc, {
-              html: tableRef.current, // Usa a tabela HTML diretamente
-              startY: 20,
-              
-              useCss: true,
+                html: tableRef.current,
+                startY: 25,
+                useCss: true,
             });
         }
-    
-        // Salva o PDF com um nome específico
-        doc.save("relatorio_fluxo_caixa_2024_"+moment().format("DDMMYYYYHm")+".pdf");
-
+        doc.save(`relatorio_fluxo_caixa_2024_${moment().format("DDMMYYYY_HHmm")}.pdf`);
     };
 
     useEffect(() => {
-        buscaFluxo().then((res) => {
-            //console.log(chunkArray( res, 10))
-            //setProdutos(chunkArray( res, 10))
-            setProdutos([res])
-            
-        })
-    },[])
-    // const chunkArray = (array, size) => {
-    //     const chunkedArray = [];
-    //     for (let i = 0; i < array.length; i += size) {
-    //       chunkedArray.push(array.slice(i, i + size));
-    //     }
-    //     return chunkedArray;
-    // }
-      
-   
+        setLoading(true);
+        buscaFluxo()
+            .then((res) => {
+                setProdutos([res]);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError("Erro ao carregar os dados do fluxo de caixa.");
+                setLoading(false);
+                console.error("Erro na busca do fluxo:", err);
+            });
+    }, []);
 
-    let totalValorCaixa = 0
-   
-  
+    let totalValorCaixa = 0;
 
-    return(
-        <div style={{ display:"flex"}}>
-            
+    if (produtos && produtos[0]) {
+        totalValorCaixa = produtos[0].reduce((acc, item) => {
+            if (item.tipo === "venda" || item.tipo === "entrada") {
+                return acc + item.valor;
+            } else {
+                return acc - item.valor;
+            }
+        }, 0);
+    }
+
+    if (loading) {
+        return (
+            <div className="fluxo-container">
+                <Menulateral />
+                <div className="fluxo-content loading">Carregando dados...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="fluxo-container">
+                <Menulateral />
+                <div className="fluxo-content error">{error}</div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="fluxo-container">
             <Menulateral />
-            <div className="" style={{display:"flex", width: '100%', alignItems:"center", justifyContent:"center"}}>
-                <div>
-                    <button onClick={() => generatePDF()}>Exportar</button>
+            <div className="fluxo-content">
+                <div className="fluxo-header">
+                    <button className="export-button" onClick={generatePDF}>
+                        <i className="fas fa-file-pdf"></i> Exportar para PDF
+                    </button>
                 </div>
-                <div style={{ display:"flex", height: "100vh", width: '80%' }}>
-                    
-                    <div style={{ display:"flex", maxHeight: "100vh", width: '100%', justifyContent:"center", height:"90%", overflow:"auto", marginTop:20  }}>
-                        <table style={{marginTop:0, overflow:"auto"}}  ref={tableRef}>
-                            <thead className="theadFluxo">
-                                <tr className="theadTR">
-                                    <th className="theadTH">Ação</th>
-                                    <th className="theadTH">Usuario</th>
-                                    <th className="theadTH">Valor</th>
-                                    <th className="theadTH">Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    produtos[index].map((re) => {
-                                        let cor = "#000"
+                <div className="fluxo-table-container">
+                    <table className="fluxo-table" ref={tableRef}>
+                        <thead className="fluxo-thead">
+                            <tr className="fluxo-thead-tr">
+                                <th className="fluxo-thead-th">Ação</th>
+                                <th className="fluxo-thead-th">Usuário</th>
+                                <th className="fluxo-thead-th">Valor</th>
+                                <th className="fluxo-thead-th">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {produtos[index]?.map((re) => {
+                                let cor = "#000";
+                                let valor = `${re.valor.toFixed(2)}`.replace(".", ",");
 
-
-                                        
-                                        let valor = `${re.valor.toFixed(2)}`.replace(".",",")
-
-                                        if(re.tipo === "venda"){
-
-                                            totalValorCaixa = totalValorCaixa+re.valor
-
-                                        }else  if(re.tipo === "entrada"){
-
-                                            totalValorCaixa = totalValorCaixa+re.valor
-
-                                        }else{
-
-                                            totalValorCaixa = totalValorCaixa-re.valor
-                                            valor = `-${valor}`
-                                            cor = "#ff0004"
-                                        }
-                                        
-                                        
-
-                                        return(
-                                            <tr >
-                                                <th className="tbodyTH">{re.tipo}</th>
-                                                <th className="tbodyTH">{re.informacoes}</th>
-                                                <th style={{color:cor, backgroundColor:"#fff", border:"1px solid #cccccc", fontSize:"14px"} }>R$ {mascaraMonetaria(valor)}</th>
-                                                <th className="tbodyTH">{re.data}</th>
-                                                
-                                            </tr>
-                                        )
-                                    })
+                                if (re.tipo === "saida") {
+                                    valor = `-${valor}`;
+                                    cor = "#ff4d4d"; // Um tom de vermelho mais suave
                                 }
-                                <tr >
-                                    <th className="tbodyTH">TOTAL</th>
-                                    <th className="tbodyTH"></th>
-                                    <th className="tbodyTH">R$ {parseFloat(totalValorCaixa).toFixed(2).toString().replace(".",",")}</th>
-                                    <th className="tbodyTH" ></th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
+
+                                return (
+                                    <tr key={re.id}> {/* Adicione uma key única para cada linha */}
+                                        <td className="fluxo-tbody-td">{re.tipo}</td>
+                                        <td className="fluxo-tbody-td">{re.informacoes}</td>
+                                        <td className="fluxo-tbody-td" style={{ color: cor }}>
+                                            R$ {mascaraMonetaria(valor)}
+                                        </td>
+                                        <td className="fluxo-tbody-td">{re.data}</td> {/* Formate a data */}
+                                    </tr>
+                                );
+                            })}
+                            <tr className="fluxo-total-row">
+                                <th className="fluxo-total-th">TOTAL</th>
+                                <th className="fluxo-total-th"></th>
+                                <th className="fluxo-total-th">R$ {mascaraMonetaria(parseFloat(totalValorCaixa).toFixed(2))}</th>
+                                <th className="fluxo-total-th"></th>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-               
             </div>
         </div>
-    )
+    );
+};
 
-}
-
-export default Fluxo
+export default Fluxo;

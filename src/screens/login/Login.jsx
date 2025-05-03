@@ -22,17 +22,18 @@ const Login = () => {
             return;
         }
 
-        api
-            .post("login", { login, senha })
-            .then((res) => {
+        api.post("login", { login, senha, acesso:"web" }).then((res) => {
+
                 console.log(res);
                 window.location.href = "/index";
-            })
-            .catch((er) => {
+
+            }).catch((er) => {
+
                 console.log("entrou no erro",er);
                 setModalAberta(true);
                 setMsgModal(er.response?.data?.valor || "Erro ao fazer login");
                 console.log(er.response?.data?.valor);
+                
             });
     };
 

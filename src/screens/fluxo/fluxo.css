@@ -1,16 +1,106 @@
-
-.theadTH{
-    color: black;
-    background-color:rgb(12, 196, 165) ;
+.fluxo-container {
+    display: flex;
+    background-color: #1e1e1e;
+    min-height: 100vh;
     color: #fff;
-    height: 40px;
-    font-size: 20px;
-    border: 1px solid #cccccc;
-    
-}
-
-.tbodyTH{
-    color: black;
-    background-color:white ;
-    border: 1px solid #cccccc;
-}
+  }
+  
+  .fluxo-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .fluxo-header {
+    display: flex;
+    justify-content: flex-end;
+    width: 95%;
+    margin-bottom: 20px;
+  }
+  
+  .export-button {
+    background-color: #f0660a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .export-button:hover {
+    background-color: #d15507;
+  }
+  
+  .export-button i {
+    margin-right: 8px;
+  }
+  
+  .fluxo-table-container {
+    width: 95%;
+    max-height: 70vh;
+    overflow-y: auto;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .fluxo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0;
+  }
+  
+  .fluxo-thead-th {
+    background-color: #f0660a;
+    color: #fff;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 18px;
+    border-bottom: 2px solid #d15507;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .fluxo-tbody-tr:nth-child(even) { /* Estiliza linhas pares */
+    background-color: #444; /* Cor de fundo mais sutil para linhas pares */
+  }
+  
+  .fluxo-tbody-td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #555;
+    font-size: 16px;
+    color: #ddd;
+  }
+  
+  .fluxo-tbody-td:last-child {
+    border-bottom: none;
+  }
+  
+  .fluxo-total-row {
+    background-color: #444;
+    font-weight: bold;
+  }
+  
+  .fluxo-total-th {
+    padding: 12px 15px;
+    font-size: 18px;
+    text-align: left;
+    color: #fff;
+  }
+  
+  .loading {
+    font-size: 18px;
+    font-style: italic;
+    color: #ccc;
+  }
+  
+  .error {
+    color: #ff4d4d;
+    font-size: 18px;
+    font-weight: bold;
+  }
