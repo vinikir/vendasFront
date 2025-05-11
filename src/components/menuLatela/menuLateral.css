@@ -10,7 +10,6 @@
     flex-shrink: 0; /* Impede o menu de encolher */
 }
 
-
 .sub-container-menu {
     width: 100%;
     display: flex;
@@ -26,6 +25,9 @@
     font-size: 16px;
     font-weight: 500;
     border-left: 5px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .aba:hover {
@@ -40,4 +42,27 @@
     font-weight: bold;
     border-left: 5px solid #f0660a;
     padding-left: 25px;
+}
+
+.seta {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.seta.aberta {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    margin-left: 20px;
+    border-left: 1px solid #444;
+}
+
+.submenu-item {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.submenu-item:hover {
+    background-color: #2a2a2a;
 }
