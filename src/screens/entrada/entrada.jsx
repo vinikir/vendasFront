@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect, useCallback } from "react";
 import Menulateral from "../../components/menuLatela/menuLateral";
 import Modal from "../../components/modal/modal";

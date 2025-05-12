@@ -68,26 +68,9 @@ const Fornecedores = () => {
     const [ fornecedorId, setFornecedorId ] = useState()
     const [atualizacao, setAtualizacao] = useState(false);
     const [msg, setMsg] = useState("");
-    const [modalAberta, setModalAberta] = useState(false);
+    const [modalAberta, setModalAberta] = useState(false);   
 
-    const { id } = useParams();
-    const location = useLocation();
-
-    useEffect(() => {
-        if (location.pathname.includes("fornecedor/atualizar")) {
-            setAtualizacao(true);
-            buscaInfosFornecedor();
-        }
-    }, []);
-
-    const buscaInfosFornecedor = () => {
-        api.get("fornecedores?id=" + id).then((res) => {
-            const fornecedor = res?.data?.valor?.[0];
-            if (fornecedor?._id) {
-                preencherCampos(fornecedor);
-            }
-        });
-    };
+   
 
     const preencherCampos = (fornecedor) => {
         if(typeof fornecedor.value != "undefined"){

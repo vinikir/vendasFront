@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiEdit2,  FiEye, FiPlus, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -29,6 +31,7 @@ const PremiumFornecedores = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         buscarFornecedores();
     }, []);
 
