@@ -55,7 +55,7 @@ const Entrada = () => {
             setAtualizacao(true);
             buscaInfosproduto();
         }
-    }, [location.pathname]);
+    }, []);
 
     const buscaInfosproduto = () => {
         api.get("produtos?id=" + id).then((res) => {

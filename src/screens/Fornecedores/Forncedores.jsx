@@ -78,7 +78,7 @@ const Fornecedores = () => {
             setAtualizacao(true);
             buscaInfosFornecedor();
         }
-    }, [location.pathname]);
+    }, []);
 
     const buscaInfosFornecedor = () => {
         api.get("fornecedores?id=" + id).then((res) => {
@@ -91,9 +91,10 @@ const Fornecedores = () => {
 
     const preencherCampos = (fornecedor) => {
         if(typeof fornecedor.value != "undefined"){
-            fornecedor = fornecedores.filter( (el) => el._id == fornecedor.value)[0]
+            fornecedor = fornecedores.filter( (el) => el._id === fornecedor.value)[0]
             setAtualizacao(true);
             setFornecedorId(fornecedor._id)
+            setFornecedorSelecionado(fornecedor)
         }
         
         setNome(fornecedor.nome);
@@ -275,7 +276,7 @@ const Fornecedores = () => {
 
         clearTimeout(time.current)
        
-        if(busca == ""){
+        if(busca === ""){
             
             return
         }

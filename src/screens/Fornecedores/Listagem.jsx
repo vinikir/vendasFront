@@ -15,8 +15,6 @@ const PremiumFornecedores = () => {
         cidade: '',
         favorito: false
     });
-    const [ordenacao, setOrdenacao] = useState('nome');
-    const [ordemCrescente, setOrdemCrescente] = useState(true);
     const [mostrarFiltros, setMostrarFiltros] = useState(false);
     const [carregando, setCarregando] = useState(true);
     const [modalAberta, setModalAberta] = useState(false);
@@ -32,7 +30,7 @@ const PremiumFornecedores = () => {
 
     useEffect(() => {
         buscarFornecedores();
-    }, [filtro, filtrosAvancados, ordenacao, ordemCrescente, paginacao.paginaAtual]);
+    }, []);
 
     const buscarFornecedores = async () => {
         setCarregando(true);
@@ -40,8 +38,8 @@ const PremiumFornecedores = () => {
             const params = {
                 pagina: paginacao.paginaAtual,
                 limite: paginacao.itensPorPagina,
-                ordenacao,
-                ordem: ordemCrescente ? 'asc' : 'desc'
+                
+                
             };
 
             if (filtro) params.busca = filtro;

@@ -48,10 +48,10 @@ const Produtos = () => {
                             <tbody>
                                 {
                                     produtos.map((re) => {
-                                        if(re.tipo != "venda" || re.estoque <= 0){
-                                            return
+                                        if(re.tipo !== "venda" || re.estoque <= 0){
+                                            return ""
                                         }
-                                        console.log(re)
+                                        
 
                                         let valorV = `${re.valorVenda}`
                                         

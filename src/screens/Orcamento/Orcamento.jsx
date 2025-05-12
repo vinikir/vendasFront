@@ -22,7 +22,6 @@ const Orcamento = () => {
         setSelectedValues([...selectedValues, itemachado])
         
     }
-    const [ html, setHtml ] = useState()
 
 
     const colourStyles = {
@@ -144,6 +143,8 @@ const Orcamento = () => {
 
                 </tr>
             `
+
+            return ""
             
         })
         return he
@@ -262,7 +263,7 @@ const Orcamento = () => {
         `;
 
         
-        setHtml(h)
+        
         baixar(h)
     } 
     
