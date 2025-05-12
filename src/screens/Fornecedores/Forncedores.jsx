@@ -6,6 +6,7 @@ import { useLocation, useParams } from "react-router-dom";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import "./fornecedores.css";
+import { formatarDocumento, formatarTelefone, formatarCEP  } from "../../functions/funcoes";
 
 const animatedComponents = makeAnimated();
 
@@ -39,7 +40,6 @@ const colourStyles = {
 };
 
 const Fornecedores = () => {
-    const [fornecedorBuscar, setFornecedorBuscar] = useState("");
     const [nome, setNome] = useState("");
     const [documento, setDocumento] = useState("");
     const [inscricaoEstadual, setInscricaoEstadual] = useState("");
@@ -62,7 +62,6 @@ const Fornecedores = () => {
     const [tipoFornecedor, setTipoFornecedor] = useState(null);
     const [produtosFornecidos, setProdutosFornecidos] = useState([]);
     const [observacoes, setObservacoes] = useState("");
-    const [buscaFornecedorNome, setBuscaFornecedor] = useState("");
     const [fornecedoresOptios, setFornecedoresOption] = useState([]);
     const [fornecedores, setFornecedores] = useState([]);
     const [ fornecedorSelecionado, setFornecedorSelecionado ] = useState()
@@ -152,48 +151,15 @@ const Fornecedores = () => {
         if (!nome.trim()) return "O nome é obrigatório";
         if (!documento.trim()) return "O documento (CPF/CNPJ) é obrigatório";
         if (!telefone.trim()) return "O telefone é obrigatório";
-        if (!email.trim()) return "O email é obrigatório";
         if (!tipoFornecedor) return "O tipo de fornecedor é obrigatório";
         return null;
     };
 
-    const formatarDocumento = (value) => {
-        // Remove todos os caracteres não numéricos
-        const numeros = value.replace(/\D/g, '');
+    
 
-        // Verifica se é CPF (11 dígitos) ou CNPJ (14 dígitos)
-        if (numeros.length <= 11) {
-            // Formata como CPF: 000.000.000-00
-            return numeros
-                .replace(/(\d{3})(\d)/, '$1.$2')
-                .replace(/(\d{3})(\d)/, '$1.$2')
-                .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
-                .substring(0, 14);
-        } else {
-            // Formata como CNPJ: 00.000.000/0000-00
-            return numeros
-                .replace(/^(\d{2})(\d)/, '$1.$2')
-                .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-                .replace(/\.(\d{3})(\d)/, '.$1/$2')
-                .replace(/(\d{4})(\d)/, '$1-$2')
-                .substring(0, 18);
-        }
-    };
+    
 
-    const formatarTelefone = (value) => {
-        return value
-            .replace(/\D/g, '')
-            .replace(/^(\d{2})(\d)/g, '($1) $2')
-            .replace(/(\d)(\d{4})$/, '$1-$2')
-            .substring(0, 15);
-    };
-
-    const formatarCEP = (value) => {
-        return value
-            .replace(/\D/g, '')
-            .replace(/^(\d{5})(\d)/, '$1-$2')
-            .substring(0, 9);
-    };
+    
 
     const enviar = () => {
         const erro = validarFormulario();
@@ -345,7 +311,7 @@ const Fornecedores = () => {
                                     styles={colourStyles}
                                     className="form-input"
                                     classNamePrefix="react-select"
-                                    placeholder="Selecione o tipo..."
+                                    placeholder="Selecione o fornecedor..."
                                     onInputChange={ (t) => {buscFornecedor(t); }}
                                 />
                                 {/* <input

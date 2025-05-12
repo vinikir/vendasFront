@@ -15,7 +15,7 @@ import Orcamento from '../screens/Orcamento/Orcamento'
 import Fluxo from '../screens/fluxo/Fluxo'
 import Aportes from '../screens/Aportes/aportes'
 import Fornecedores from '../screens/Fornecedores/Forncedores'
-
+import ListaFornecedores from '../screens/Fornecedores/Listagem'
 const Rotas = () => {
 
     return (
@@ -33,6 +33,7 @@ const Rotas = () => {
                 <Route path="/orcamento" element={<Orcamento />} />
                 <Route path="/aporte" element={<Aportes />} />
                 <Route path="/fornecedores" element={<Fornecedores />} />
+                <Route path="/fornecedores/listar" element={<ListaFornecedores />} />
 
             </Routes>
         </BrowserRouter>

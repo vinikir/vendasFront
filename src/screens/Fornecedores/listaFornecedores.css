@@ -1,0 +1,482 @@
+/* Cores da paleta */
+:root {
+    --bg-dark: #222222;         /* Cor de fundo principal */
+    --card-bg: #2a2a2a;         /* Cor dos cards */
+    --primary-color: #f0660a;    /* Laranja - destaques e ações */
+    --primary-hover: #d45c09;    /* Laranja mais escuro para hover */
+    --text-color: #f0f0f0;      /* Texto claro */
+    --text-light: #bbbbbb;      /* Texto secundário */
+    --border-color: #3a3a3a;    /* Bordas */
+    --favorite-color: #ffc107;  /* Amarelo para favoritos */
+    --success-color: #4bb543;   /* Verde para sucesso */
+    --danger-color: #e74a3b;    /* Vermelho para ações perigosas */
+}
+
+/* Estilos Base */
+.premium-page-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-dark);
+}
+
+.premium-content-wrapper {
+    flex: 1;
+    padding: 2rem;
+    background-color: var(--bg-dark);
+}
+
+.premium-fornecedores-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+/* Cabeçalho */
+.premium-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.premium-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Botões */
+.premium-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    gap: 0.5rem;
+}
+
+.premium-button.primary {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(240, 102, 10, 0.3);
+}
+
+.premium-button.primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px rgba(240, 102, 10, 0.4);
+}
+
+.premium-button.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.premium-button.secondary:hover {
+    background-color: rgba(240, 102, 10, 0.1);
+}
+
+/* Barra de Ferramentas */
+.premium-toolbar {
+    margin-bottom: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-light);
+}
+
+.premium-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+}
+
+.premium-search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(240, 102, 10, 0.2);
+}
+
+.filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.filter-toggle:hover, .filter-toggle.active {
+    background-color: var(--bg-dark);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Filtros Avançados */
+.advanced-filters {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    color: var(--text-color);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.filter-group select, 
+.filter-group input[type="text"] {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+}
+
+.filter-group select:focus, 
+.filter-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox-group input {
+    margin-right: 0.5rem;
+}
+
+/* Grid de Fornecedores */
+.premium-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.fornecedor-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+.fornecedor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fornecedor-card.favorito {
+    border-left: 4px solid var(--favorite-color);
+}
+
+.card-header {
+    padding: 1.5rem 1.5rem 1rem;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.favorito-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.3s;
+}
+
+.favorito-icon:hover {
+    transform: scale(1.1);
+}
+
+.favorito-icon .favorited {
+    color: var(--favorite-color);
+}
+
+.fornecedor-nome {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fornecedor-tipo {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(240, 102, 10, 0.1);
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.card-body {
+    padding: 1rem 1.5rem;
+    flex-grow: 1;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 0.75rem;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    min-width: 100px;
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    word-break: break-word;
+}
+
+.card-footer {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    background-color: rgba(30, 30, 30, 0.5);
+}
+
+.action-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    background-color: var(--bg-dark);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-button.view {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.action-button.view:hover {
+    background-color: rgba(240, 102, 10, 0.1);
+}
+
+.action-button.edit {
+    color: var(--favorite-color);
+    border: 1px solid var(--favorite-color);
+}
+
+.action-button.edit:hover {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.action-button.delete {
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.action-button.delete:hover {
+    background-color: rgba(231, 74, 59, 0.1);
+}
+
+/* Paginação */
+.premium-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: var(--bg-dark);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-button.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ellipsis {
+    padding: 0 0.5rem;
+    color: var(--text-light);
+}
+
+/* Estados de Carregamento e Sem Resultados */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    color: var(--text-light);
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-light);
+}
+
+.no-results img {
+    width: 150px;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+}
+
+.no-results h3 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.no-results p {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .premium-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .premium-content-wrapper {
+        padding: 1rem;
+    }
+
+    .premium-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .advanced-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-pagination {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 576px) {
+    .premium-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fornecedor-card {
+        max-width: 100%;
+    }
+}
