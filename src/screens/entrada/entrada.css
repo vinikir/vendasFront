@@ -1,126 +1,130 @@
 /* Variáveis de cores e estilos - Tema Escuro */
 :root {
-    --primary-color: #f0660a; /* Laranja para ações primárias */
+    --primary-color: #f0660a;
+    /* Laranja para ações primárias */
     --primary-hover: #d45a09;
     --secondary-color: #555555;
     --secondary-hover: #666666;
     --success-color: #4bb543;
     --danger-color: #f44336;
-    --text-color: #f0f0f0; /* Texto claro */
+    --text-color: #f0f0f0;
+    /* Texto claro */
     --text-light: #bbbbbb;
-    --bg-color: #222222; /* Fundo mais escuro que #333 */
-    --card-color: #333333; /* Cor do card */
+    --bg-color: #222222;
+    /* Fundo mais escuro que #333 */
+    --card-color: #333333;
+    /* Cor do card */
     --border-color: #444444;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Reset e estilos base */
-  * {
+}
+
+/* Reset e estilos base */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
+}
+
+body {
     background-color: var(--bg-color);
     color: var(--text-color);
-  }
-  
-  /* Layout principal */
-  .page-container {
+}
+
+/* Layout principal */
+.page-container {
     display: flex;
     min-height: 100vh;
     background-color: var(--bg-color);
-  }
-  
-  .content-wrapper {
+}
+
+.content-wrapper {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
     background-color: var(--bg-color);
-  }
-  
-  .form-card {
+}
+
+.form-card {
     background-color: var(--card-color);
     border-radius: 12px;
     box-shadow: var(--shadow);
     padding: 2rem;
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
-  }
-  
-  .form-title {
+}
+
+.form-title {
     color: var(--text-color);
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
     font-weight: 600;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.75rem;
-  }
-  
-  /* Grid do formulário */
-  .form-grid {
+}
+
+/* Grid do formulário */
+.form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-  }
-  
-  .form-section {
+}
+
+.form-section {
     grid-column: span 1;
     margin-bottom: 1.5rem;
-  }
-  
-  .section-title {
+}
+
+.section-title {
     font-size: 1.25rem;
     color: var(--text-color);
     margin-bottom: 1rem;
     font-weight: 500;
     display: flex;
     align-items: center;
-  }
-  
-  .section-title:before {
+}
+
+.section-title:before {
     content: "";
     display: inline-block;
     width: 4px;
     height: 1.25rem;
     background-color: var(--primary-color);
     margin-right: 0.75rem;
-  }
-  
-  .section-content {
+}
+
+.section-content {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-  
-  /* Grupos de formulário */
-  .form-group {
+}
+
+/* Grupos de formulário */
+.form-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-  }
-  
-  .form-label {
+}
+
+.form-label {
     font-size: 0.875rem;
     color: var(--text-color);
     font-weight: 500;
-  }
-  
-  .form-label:after {
+}
+
+.form-label:after {
     content: "*";
     color: var(--danger-color);
     margin-left: 0.25rem;
     display: none;
-  }
-  
-  .form-group.required .form-label:after {
+}
+
+.form-group.required .form-label:after {
     display: inline;
-  }
-  
-  /* Inputs */
-  .form-input {
+}
+
+/* Inputs */
+.form-input {
     padding: 0.75rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -129,63 +133,63 @@
     width: 100%;
     background-color: #444444;
     color: var(--text-color);
-    
-  }
-  
-  .form-input:focus {
+
+}
+
+.form-input:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: 0 0 0 3px rgba(240, 102, 10, 0.3);
-  }
-  
-  .form-input::placeholder {
+}
+
+.form-input::placeholder {
     color: var(--text-light);
-  }
-  
-  textarea.form-input {
+}
+
+textarea.form-input {
     min-height: 80px;
     resize: vertical;
-  }
-  
-  /* Inputs com ícones */
-  .input-with-icon {
+}
+
+/* Inputs com ícones */
+.input-with-icon {
     position: relative;
     display: flex;
     align-items: center;
-    
-  }
-  
-  .input-with-icon .form-input {
+
+}
+
+.input-with-icon .form-input {
     padding-left: 2rem;
-  }
-  
-  .currency-symbol,
-  .percentage-symbol {
+}
+
+.currency-symbol,
+.percentage-symbol {
     position: absolute;
     left: 1rem;
     color: var(--text-light);
-    font-weight: 500;  
+    font-weight: 500;
     margin-left: -10px;
-    
-  }
-  
-  .percentage-symbol {
+
+}
+
+.percentage-symbol {
     left: auto;
     right: 1rem;
-  }
-  
-  /* Seção de busca */
-  .search-section {
+}
+
+/* Seção de busca */
+.search-section {
     grid-column: 1 / -1;
     margin-bottom: 1rem;
-  }
-  
-  .input-group {
+}
+
+.input-group {
     display: flex;
     gap: 0.5rem;
-  }
-  
-  .search-button {
+}
+
+.search-button {
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -197,33 +201,33 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  
-  .search-button:hover {
+}
+
+.search-button:hover {
     background-color: var(--primary-hover);
-  }
-  
-  /* Switch */
-  .switch-group {
+}
+
+/* Switch */
+.switch-group {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-  }
-  
-  .switch {
+}
+
+.switch {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 26px;
-  }
-  
-  .switch input {
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -233,9 +237,9 @@
     background-color: #666666;
     transition: 0.4s;
     border-radius: 34px;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 20px;
@@ -245,35 +249,35 @@
     background: white;
     transition: 0.4s;
     border-radius: 50%;
-  }
-  
-  .switch input:checked + .slider {
+}
+
+.switch input:checked+.slider {
     background-color: var(--success-color);
-  }
-  
-  .switch input:checked + .slider:before {
+}
+
+.switch input:checked+.slider:before {
     transform: translateX(24px);
-  }
-  
-  .switch-label {
+}
+
+.switch-label {
     font-size: 0.875rem;
     color: var(--text-color);
-  }
-  
-  /* Preview de imagem */
-  .image-preview {
+}
+
+/* Preview de imagem */
+.image-preview {
     margin-top: 0.5rem;
-  }
-  
-  .image-preview img {
+}
+
+.image-preview img {
     max-width: 100px;
     max-height: 100px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
-  }
-  
-  /* Botões de ação */
-  .form-actions {
+}
+
+/* Botões de ação */
+.form-actions {
     grid-column: 1 / -1;
     display: flex;
     justify-content: flex-end;
@@ -281,9 +285,9 @@
     margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
-  }
-  
-  .primary-button {
+}
+
+.primary-button {
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -295,13 +299,13 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  
-  .primary-button:hover {
+}
+
+.primary-button:hover {
     background-color: var(--primary-hover);
-  }
-  
-  .secondary-button {
+}
+
+.secondary-button {
     background-color: var(--secondary-color);
     color: var(--text-color);
     border: 1px solid var(--border-color);
@@ -313,107 +317,107 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  
-  .secondary-button:hover {
+}
+
+.secondary-button:hover {
     background-color: var(--secondary-hover);
-  }
-  
-  /* Customização do React Select */
-  .react-select-container {
+}
+
+/* Customização do React Select */
+.react-select-container {
     font-size: 0.875rem;
-  }
-  
-  .react-select__control {
+}
+
+.react-select__control {
     min-height: 42px !important;
     border-color: var(--border-color) !important;
     background-color: #444444 !important;
-  }
-  
-  .react-select__control--is-focused {
+}
+
+.react-select__control--is-focused {
     border-color: var(--primary-color) !important;
     box-shadow: 0 0 0 1px var(--primary-color) !important;
-  }
-  
-  .react-select__single-value {
+}
+
+.react-select__single-value {
     color: var(--text-color) !important;
-  }
-  
-  .react-select__placeholder {
+}
+
+.react-select__placeholder {
     color: var(--text-light) !important;
-  }
-  
-  .react-select__input-container input {
+}
+
+.react-select__input-container input {
     color: var(--text-color) !important;
-  }
-  
-  .react-select__menu {
+}
+
+.react-select__menu {
     background-color: #444444 !important;
     border: 1px solid var(--border-color) !important;
-  }
-  
-  .react-select__option {
+}
+
+.react-select__option {
     background-color: #444444 !important;
     color: var(--text-color) !important;
-  }
-  
-  .react-select__option--is-focused {
+}
+
+.react-select__option--is-focused {
     background-color: #555555 !important;
-  }
-  
-  .react-select__option--is-selected {
+}
+
+.react-select__option--is-selected {
     background-color: var(--primary-color) !important;
-  }
-  
-  .react-select__multi-value {
+}
+
+.react-select__multi-value {
     background-color: #555555 !important;
     border-radius: 4px !important;
-  }
-  
-  .react-select__multi-value__label {
+}
+
+.react-select__multi-value__label {
     color: var(--text-color) !important;
     font-size: 0.8rem !important;
-  }
-  
-  .react-select__multi-value__remove:hover {
+}
+
+.react-select__multi-value__remove:hover {
     background-color: #666666 !important;
     color: var(--text-color) !important;
-  }
-  
-  .react-select__indicator-separator {
+}
+
+.react-select__indicator-separator {
     background-color: var(--border-color) !important;
-  }
-  
-  .react-select__dropdown-indicator {
+}
+
+.react-select__dropdown-indicator {
     color: var(--text-light) !important;
-  }
-  
-  .react-select__dropdown-indicator:hover {
+}
+
+.react-select__dropdown-indicator:hover {
     color: var(--text-color) !important;
-  }
-  
-  /* Ícones (usando Font Awesome) */
-  .fas {
+}
+
+/* Ícones (usando Font Awesome) */
+.fas {
     font-size: 0.875rem;
-  }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
     .content-wrapper {
-      padding: 1rem;
+        padding: 1rem;
     }
-    
+
     .form-card {
-      padding: 1.5rem;
+        padding: 1.5rem;
     }
-    
+
     .form-actions {
-      flex-direction: column;
+        flex-direction: column;
     }
-    
+
     .primary-button,
     .secondary-button {
-      width: 100%;
-      justify-content: center;
+        width: 100%;
+        justify-content: center;
     }
-  }
+}

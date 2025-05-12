@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiEdit2, FiTrash2, FiEye, FiPlus, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiSearch, FiEdit2,  FiEye, FiPlus, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaFilter, FaRegStar, FaStar } from 'react-icons/fa';
 import Menulateral from '../../components/menuLatela/menuLateral';
 import Modal from '../../components/modal/modal';

@@ -74,7 +74,7 @@ const Aportes = () => {
 
         api.post("/aporte/salvar", infos).then( (res) => {
             console.log(res.data)
-            if(res.data.erro  == false ){
+            if(res.data.erro  === false ){
                 setMsg("Aporte salvo com sucesso")
                 setModalAberta(true)
                 return
