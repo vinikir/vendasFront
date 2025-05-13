@@ -17,7 +17,7 @@ const Menulateral = () => {
 
 	const abas = [
 		{ id: 1, nome: "Dashboard", url: "/index" },
-		{ id: 2, nome: "Entrada", url: "/entrada" },
+		// { id: 2, nome: "Entrada", url: "/entrada" },
 		{ id: 3, nome: "Produtos", url: "/produtos" },
 		{
 			id: 4,

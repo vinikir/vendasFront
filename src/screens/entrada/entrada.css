@@ -421,3 +421,75 @@ textarea.form-input {
         justify-content: center;
     }
 }
+
+/* Estilos para a seção de Locais */
+.locais-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group-local {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.input-group-local .form-input {
+    flex: 1;
+}
+
+.add-local-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.add-local-button:hover {
+    background-color: var(--primary-hover);
+}
+
+.locais-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.local-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: #444444;
+    border-radius: 6px;
+}
+
+.local-tipo {
+    font-weight: 500;
+}
+
+.local-valor {
+    flex: 1;
+}
+
+.remove-local-button {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-local-button:hover {
+    color: #ff6b6b;
+}

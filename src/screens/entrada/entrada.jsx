@@ -28,7 +28,7 @@ const colourStyles = {
 };
 
 const Entrada = () => {
-    const [produtoBuscar, setProdutoBuscar] = useState("");
+    // const [produtoBuscar, setProdutoBuscar] = useState("");
     const [nome, setNome] = useState("");
     const [descricao, setDescricao] = useState("");
     const [valorCompra, setValorCompra] = useState("");
@@ -44,6 +44,10 @@ const Entrada = () => {
     const [Observacao, setObservacao] = useState("");
     const [grupoBusca, setGrupoBusca] = useState("");
     const [selectedValues, setSelectedValues] = useState([]);
+
+    const [locais, setLocais] = useState([]);
+    const [novoTipoLocal, setNovoTipoLocal] = useState("");
+    const [novoValorLocal, setNovoValorLocal] = useState("");
 
     const [atualizacao, setAtualizacao] = useState(false);
     const [msg, setMsg] = useState("");
@@ -68,6 +72,20 @@ const Entrada = () => {
         });
     };
 
+    const adicionarLocal = () => {
+        if (novoTipoLocal.trim() && novoValorLocal.trim()) {
+            setLocais([...locais, { tipo: novoTipoLocal, valor: novoValorLocal }]);
+            setNovoTipoLocal("");
+            setNovoValorLocal("");
+        }
+    };
+
+    const removerLocal = (index) => {
+        const novosLocais = [...locais];
+        novosLocais.splice(index, 1);
+        setLocais(novosLocais);
+    };
+
     const preencherCampos = (produto) => {
         setIsChecked(produto.ativo);
         setNome(produto.nome);
@@ -80,6 +98,7 @@ const Entrada = () => {
         setMarca(produto.marca || "");
         setImg(produto.img || "");
         setSelectedValues(produto.categoria?.map((c) => ({ label: c, value: c })) || []);
+        setLocais(produto.localizacao || []);
     };
 
     const buscaGrupos = useCallback((valor) => {
@@ -155,13 +174,17 @@ const Entrada = () => {
             marca,
             img,
             valorVenda: parseFloat(valorVenda.replace(",", ".")),
+            localizacao:locais
         };
+
+        
 
         let url = "/produto";
         if (atualizacao) {
             url += "/atualizar";
             infos.id = id;
         }
+
 
         api.post(url, infos).then((res) => {
             const sucesso = res.data?.valor?._id || res.data?.valor?.modifiedCount;
@@ -179,11 +202,20 @@ const Entrada = () => {
             <Menulateral />
             <div className="content-wrapper">
                 <div className="form-card">
-                    <h1 className="form-title">Cadastro de Produto</h1>
+                    {
+                        location.pathname.includes("produto/atualizar") ? (
+                            <h1 className="form-title">Atualização de Produto</h1>
 
+                        ) :
+                        (
+                            <h1 className="form-title">Cadastro de Produto</h1>
+
+                        )
+                    }
+                   
                     <div className="form-grid">
                         {/* SEÇÃO DE BUSCA */}
-                        <div className="search-section">
+                        {/* <div className="search-section">
                             <div className="input-group">
                                 <input
                                     value={produtoBuscar}
@@ -195,12 +227,24 @@ const Entrada = () => {
                                     <i className="fas fa-search"></i> Buscar
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* SEÇÃO DE INFORMAÇÕES BÁSICAS */}
                         <div className="form-section">
                             <h2 className="section-title">Informações Básicas</h2>
                             <div className="section-content">
+                                <div className="form-group switch-group">
+                                    <label className="form-label">Status do Produto</label>
+                                    <label className="switch">
+                                        <input
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            onChange={e => setIsChecked(e.target.checked)}
+                                        />
+                                        <span className="slider round"></span>
+                                    </label>
+                                    <span className="switch-label">{isChecked ? "Ativo" : "Inativo"}</span>
+                                </div>
                                 <div className="form-group">
                                     <label className="form-label">Nome do Produto*</label>
                                     <input
@@ -222,18 +266,7 @@ const Entrada = () => {
                                     />
                                 </div>
 
-                                <div className="form-group switch-group">
-                                    <label className="form-label">Status do Produto</label>
-                                    <label className="switch">
-                                        <input
-                                            type="checkbox"
-                                            checked={isChecked}
-                                            onChange={e => setIsChecked(e.target.checked)}
-                                        />
-                                        <span className="slider round"></span>
-                                    </label>
-                                    <span className="switch-label">{isChecked ? "Ativo" : "Inativo"}</span>
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -404,6 +437,51 @@ const Entrada = () => {
                                         rows="3"
                                         placeholder="Notas internas sobre o produto..."
                                     />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Local do Item</label>
+                                    <div className="locais-container">
+                                        <div className="input-group-local">
+                                            <input
+                                                value={novoTipoLocal}
+                                                onChange={(e) => setNovoTipoLocal(e.target.value)}
+                                                className="form-input"
+                                                placeholder="Tipo (ex: Corredor)"
+                                            />
+                                            <input
+                                                value={novoValorLocal}
+                                                onChange={(e) => setNovoValorLocal(e.target.value)}
+                                                className="form-input"
+                                                placeholder="Valor (ex: A)"
+                                            />
+                                            <button
+                                                type="button"
+                                                className="add-local-button"
+                                                onClick={adicionarLocal}
+                                            >
+                                                <i className="fas fa-plus"></i> Adicionar
+                                            </button>
+                                        </div>
+
+                                        {locais.length > 0 && (
+                                            <div className="locais-list">
+                                                {locais.map((local, index) => (
+                                                    <div key={index} className="local-item">
+                                                        <span className="local-tipo">{local.tipo}:</span>
+                                                        <span className="local-valor">{local.valor}</span>
+                                                        <button
+                                                            type="button"
+                                                            className="remove-local-button"
+                                                            onClick={() => removerLocal(index)}
+                                                        >
+                                                            <i className="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
