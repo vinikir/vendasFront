@@ -1,0 +1,141 @@
+/* Estilos específicos para a página de comissões */
+.comissoes-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.comissoes-filtros {
+    background-color: var(--bg-dark);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.filtros-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.filtros-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.filtros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.comissoes-resumo {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+}
+
+.resumo-card {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(240, 102, 10, 0.3);
+}
+
+.resumo-card h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.resumo-card h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.comissoes-tabela-container {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.comissoes-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.comissoes-tabela th,
+.comissoes-tabela td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.comissoes-tabela th {
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.comissoes-tabela td {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.comissoes-tabela tr:hover td {
+    background-color: rgba(240, 102, 10, 0.05);
+    color: var(--text-color);
+}
+
+.valor-destaque {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .filtros-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .comissoes-resumo {
+        justify-content: center;
+    }
+    
+    .resumo-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .comissoes-container {
+        padding: 1rem;
+    }
+    
+    .comissoes-tabela th,
+    .comissoes-tabela td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}

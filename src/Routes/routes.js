@@ -16,6 +16,9 @@ import Fluxo from '../screens/fluxo/Fluxo'
 import Aportes from '../screens/Aportes/aportes'
 import Fornecedores from '../screens/Fornecedores/Forncedores'
 import ListaFornecedores from '../screens/Fornecedores/Listagem'
+import ComissoesPage from '../screens/Comissao/comissao'
+import DetalhesVenda from '../screens/Venda/DetalhesVenda'
+
 const Rotas = () => {
 
     return (
@@ -34,6 +37,8 @@ const Rotas = () => {
                 <Route path="/aporte" element={<Aportes />} />
                 <Route path="/fornecedores" element={<Fornecedores />} />
                 <Route path="/fornecedores/listar" element={<ListaFornecedores />} />
+                <Route path="/comissoes" element={<ComissoesPage />} />
+                <Route path="/vendadetalhe" element={<DetalhesVenda />} />
 
             </Routes>
         </BrowserRouter>

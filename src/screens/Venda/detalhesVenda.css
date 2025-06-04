@@ -1,0 +1,252 @@
+/* Estilos específicos para a página de detalhes da venda */
+.detalhes-venda-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.info-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.info-card {
+    background-color: var(--bg-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.info-card h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.info-card p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.info-card.status-success {
+    border-left: 4px solid var(--success-color);
+}
+
+.info-card.status-danger {
+    border-left: 4px solid var(--danger-color);
+}
+
+.info-card.status-warning {
+    border-left: 4px solid var(--favorite-color);
+}
+
+/* Seção de Produtos */
+.produtos-section {
+    margin-bottom: 2rem;
+}
+
+.produtos-section h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.produtos-table-container {
+    overflow-x: auto;
+    background-color: var(--bg-dark);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.produtos-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.produtos-table th {
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    text-align: left;
+}
+
+.produtos-table td {
+    padding: 1rem;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.produtos-table tr:last-child td {
+    border-bottom: none;
+}
+
+.produtos-table tr:hover td {
+    background-color: rgba(240, 102, 10, 0.05);
+    color: var(--text-color);
+}
+
+.servico-row td {
+    color: var(--text-light);
+    opacity: 0.9;
+}
+
+.comissao-row td {
+    color: var(--success-color) !important;
+    font-weight: 500;
+}
+
+.tipo-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.tipo-badge.servico {
+    background-color: rgba(240, 102, 10, 0.1);
+    color: var(--primary-color);
+}
+
+.tipo-badge.venda {
+    background-color: rgba(75, 181, 67, 0.1);
+    color: var(--success-color);
+}
+
+/* Seção de Resumo */
+.resumo-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.resumo-card {
+    background-color: var(--bg-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 350px;
+    border: 1px solid var(--border-color);
+}
+
+.resumo-card h3 {
+    margin: 0 0 1.5rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.resumo-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.resumo-row:last-child {
+    margin-bottom: 0;
+}
+
+.resumo-row.total-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.resumo-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 1rem 0;
+}
+
+.pagamento-row {
+    padding-left: 1rem;
+    position: relative;
+}
+
+.pagamento-row::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .info-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resumo-section {
+        justify-content: center;
+    }
+
+    .resumo-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-cards-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    .premium-page-container {
+        display: block;
+    }
+
+    .menulateral {
+        display: none;
+    }
+
+    .premium-header {
+        display: none;
+    }
+
+    .detalhes-venda-container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+
+    .info-cards-container {
+        grid-template-columns: repeat(4, 1fr);
+        margin-bottom: 1rem;
+    }
+
+    .info-card {
+        background-color: transparent;
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+    }
+
+    .produtos-table-container {
+        background-color: transparent;
+        border: 1px solid #ddd;
+    }
+
+    .resumo-card {
+        background-color: transparent;
+        border: 1px solid #ddd;
+    }
+
+    @page {
+        size: auto;
+        margin: 10mm;
+    }
+}
