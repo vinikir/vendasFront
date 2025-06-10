@@ -141,7 +141,7 @@ const PremiumFornecedores = () => {
                         <div className="premium-actions">
                             <button 
                                 className="premium-button primary"
-                                onClick={() => navigate('/fornecedor/cadastrar')}
+                                onClick={() => navigate('/fornecedores')}
                             >
                                 <FiPlus className="icon" /> Novo Fornecedor
                             </button>
