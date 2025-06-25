@@ -16,7 +16,7 @@ const Fluxo = () => {
 
     const generatePDF = () => {
         const doc = new jsPDF();
-        doc.text("Relatório de Fluxo de Caixa - 2024", 14, 15);
+        doc.text("Relatório de Fluxo de Caixa - 2025", 14, 15);
 
         if (tableRef.current) {
             autoTable(doc, {
@@ -25,13 +25,14 @@ const Fluxo = () => {
                 useCss: true,
             });
         }
-        doc.save(`relatorio_fluxo_caixa_2024_${moment().format("DDMMYYYY_HHmm")}.pdf`);
+        doc.save(`relatorio_fluxo_caixa_2025_${moment().format("DDMMYYYY_HHmm")}.pdf`);
     };
 
     useEffect(() => {
         setLoading(true);
         buscaFluxo()
             .then((res) => {
+                console.log("Fluxo de caixa:", res);
                 setProdutos([res]);
                 setLoading(false);
             })
@@ -46,7 +47,8 @@ const Fluxo = () => {
 
     if (produtos && produtos[0]) {
         totalValorCaixa = produtos[0].reduce((acc, item) => {
-            if (item.tipo === "venda" || item.tipo === "entrada") {
+            
+            if (item.tipo === "venda" || item.tipo === "entrada" || item.tipo === "aporte" || item.tipo === "inicial") {
                 return acc + item.valor;
             } else {
                 return acc - item.valor;
@@ -87,12 +89,14 @@ const Fluxo = () => {
                             <tr className="fluxo-thead-tr">
                                 <th className="fluxo-thead-th">Ação</th>
                                 <th className="fluxo-thead-th">Usuário</th>
+                                <th className="fluxo-thead-th">Informações</th>
                                 <th className="fluxo-thead-th">Valor</th>
                                 <th className="fluxo-thead-th">Data</th>
                             </tr>
                         </thead>
                         <tbody>
                             {produtos[index]?.map((re) => {
+                                console.log(re)
                                 let cor = "#000";
                                 let valor = `${re.valor.toFixed(2)}`.replace(".", ",");
 
@@ -100,10 +104,31 @@ const Fluxo = () => {
                                     valor = `-${valor}`;
                                     cor = "#ff4d4d"; // Um tom de vermelho mais suave
                                 }
+                                if(re.tipo === 'venda') {
+                                                                            
+                                    cor = "#03fc03"; 
 
+                                }
+                                
+                                let user = ""
+                                if(typeof re.venda !== "undefined"){
+                                    
+                                    user = re.venda.user
+                                }
+
+                                let tipo = re.tipo;
+                                if(tipo == "compra_mercadoria"){
+                                    tipo = "Compra de Mercadoria"
+                                    
+                                    user = re.user
+                                }
+
+                                
+                               
                                 return (
                                     <tr key={re.id}> {/* Adicione uma key única para cada linha */}
-                                        <td className="fluxo-tbody-td">{re.tipo}</td>
+                                        <td className="fluxo-tbody-td">{tipo}</td>
+                                        <td className="fluxo-tbody-td">{user}</td>
                                         <td className="fluxo-tbody-td">{re.informacoes}</td>
                                         <td className="fluxo-tbody-td" style={{ color: cor }}>
                                             R$ {mascaraMonetaria(valor)}
@@ -114,6 +139,7 @@ const Fluxo = () => {
                             })}
                             <tr className="fluxo-total-row">
                                 <th className="fluxo-total-th">TOTAL</th>
+                                <th className="fluxo-total-th"></th>
                                 <th className="fluxo-total-th"></th>
                                 <th className="fluxo-total-th">R$ {mascaraMonetaria(parseFloat(totalValorCaixa).toFixed(2))}</th>
                                 <th className="fluxo-total-th"></th>

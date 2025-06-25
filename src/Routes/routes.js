@@ -1,6 +1,6 @@
-import React  from 'react'
-import { 
-    BrowserRouter, 
+import React from 'react'
+import {
+    BrowserRouter,
     Route,
     Routes
 } from 'react-router-dom'
@@ -18,7 +18,7 @@ import Fornecedores from '../screens/Fornecedores/Forncedores'
 import ListaFornecedores from '../screens/Fornecedores/Listagem'
 import ComissoesPage from '../screens/Comissao/comissao'
 import DetalhesVenda from '../screens/Venda/DetalhesVenda'
-
+import CadastroDespesas from '../screens/Despesas/CadastroDespesas'
 const Rotas = () => {
 
     return (
@@ -39,7 +39,7 @@ const Rotas = () => {
                 <Route path="/fornecedores/listar" element={<ListaFornecedores />} />
                 <Route path="/comissoes" element={<ComissoesPage />} />
                 <Route path="/vendadetalhe" element={<DetalhesVenda />} />
-
+                <Route path="/despesas/criar" element={<CadastroDespesas />} />
             </Routes>
         </BrowserRouter>
     )

@@ -23,8 +23,13 @@ const Login = () => {
         }
 
         api.post("login", { login, senha, acesso:"web" }).then((res) => {
+            console.log("Login realizado com sucesso", res.data);
+                localStorage.setItem('userId', res.data.valor.userId);
+                localStorage.setItem('userNome', res.data.valor.nome);
+                localStorage.setItem('funcionarioId', res.data.valor.funcionarioId);
+                localStorage.setItem('user', JSON.stringify(res.data.valor));
 
-                console.log(res);
+                
                 window.location.href = "/index";
 
             }).catch((er) => {

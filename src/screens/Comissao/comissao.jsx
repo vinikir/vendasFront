@@ -242,16 +242,16 @@ const ComissoesPage = () => {
                                     <tbody>
                                         {
                                             comissoes.map((venda) => {
-                                                
+
                                                 return (
                                                     <tr key={venda._id} onClick={() => {
-navigate('/vendadetalhe', { state: { venda:venda, comissao: true } });
+                                                        navigate('/vendadetalhe', { state: { venda: venda, comissao: true } });
                                                     }}>
                                                         <td>{formatarData(venda.data)}</td>
                                                         <td>{venda?.user || 'N/A'}</td>
                                                         <td>{venda?.clienteNome || 'N/A'}</td>
                                                         <td>{formatarMoeda(venda.valor)}</td>
-                                                         <td>{formatarMoeda(venda.comissionavel)}</td>
+                                                        <td>{formatarMoeda(venda.comissionavel)}</td>
                                                         <td>10%</td>
                                                         <td className="valor-destaque">
                                                             {formatarMoeda(venda.comissao)}
