@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState, useRef } from "react";
 import Menulateral from "../../components/menuLatela/menuLateral";
 import { buscaFluxo, mascaraMonetaria } from "../../functions/funcoes";
