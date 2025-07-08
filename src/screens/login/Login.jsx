@@ -21,25 +21,35 @@ const Login = () => {
             setMsgModal("A senha é obrigatória");
             return;
         }
-
-        api.post("login", { login, senha, acesso:"web" }).then((res) => {
+        console.log("Login:", login);
+        console.log("Senha:", senha);
+        api.post("login", { login, senha, acesso: "web" }).then((res) => {
             console.log("Login realizado com sucesso", res.data);
-                localStorage.setItem('userId', res.data.valor.userId);
-                localStorage.setItem('userNome', res.data.valor.nome);
-                localStorage.setItem('funcionarioId', res.data.valor.funcionarioId);
-                localStorage.setItem('user', JSON.stringify(res.data.valor));
+            localStorage.setItem('userId', res.data.valor.userId);
+            localStorage.setItem('userNome', res.data.valor.nome);
+            localStorage.setItem('funcionarioId', res.data.valor.funcionarioId);
+            localStorage.setItem('user', JSON.stringify(res.data.valor));
 
-                
-                window.location.href = "/index";
 
-            }).catch((er) => {
+            window.location.href = "/index";
 
-                console.log("entrou no erro",er);
-                setModalAberta(true);
-                setMsgModal(er.response?.data?.valor || "Erro ao fazer login");
-                console.log(er.response?.data?.valor);
-                
-            });
+        }).catch((er) => {
+
+            console.log("entrou no erro", er);
+            setModalAberta(true);
+            setMsgModal(er.response?.data?.valor || "Erro ao fazer login");
+            console.log(er.response?.data?.valor);
+
+        });
+    };
+
+    const handleKeyDown = (event) => {
+        console.log(event.key)
+        if (event.key === 'Enter') {
+            console.log('A tecla Enter foi pressionada!');
+            logar()
+        }
+        
     };
 
     return (
@@ -58,6 +68,7 @@ const Login = () => {
                             className="inputLogin"
                             onChange={(e) => setLogin(e.target.value)}
                             placeholder="Digite seu login"
+
                         />
                     </div>
 
@@ -67,8 +78,9 @@ const Login = () => {
                             value={senha}
                             type="password"
                             className="inputLogin"
-                            onChange={(e) => setSenha(e.target.value)}
+                            onChange={(e) => setSenha(e.target.value) }
                             placeholder="Digite sua senha"
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
 
