@@ -234,8 +234,11 @@ const Entrada = () => {
                 setModalAberta(true);
                 limparFormulario();
             }
+        }).catch((err) => {
+            console.error("Erro ao salvar:", err);
+            setMsg(err.response?.data?.valor || "Erro ao salvar, tente novamente.");
+            setModalAberta(true);
         });
-    };
 
     return (
         <div className="page-container">
