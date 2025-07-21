@@ -34,7 +34,8 @@ const Menulateral = () => {
 				{ id: 52, nome: "Aportes", url: "/aporte" },
 				{ id: 53, nome: "Relatórios", url: "/relatorios-caixa" },
 				{ id: 54, nome: "Comissões", url: "/comissoes" },
-				{ id: 55, nome: "Despesas", url: "/despesas/criar" }
+				{ id: 55, nome: "Despesas", url: "/despesas/criar" },
+				{ id: 56, nome: "Caixa atual", url: "/caixa/atual" }
 			]
 		},
 	];

@@ -19,6 +19,7 @@ import ListaFornecedores from '../screens/Fornecedores/Listagem'
 import ComissoesPage from '../screens/Comissao/comissao'
 import DetalhesVenda from '../screens/Venda/DetalhesVenda'
 import CadastroDespesas from '../screens/Despesas/CadastroDespesas'
+import Caixa from '../screens/caixa/Caixa'
 const Rotas = () => {
 
     return (
@@ -40,6 +41,7 @@ const Rotas = () => {
                 <Route path="/comissoes" element={<ComissoesPage />} />
                 <Route path="/vendadetalhe" element={<DetalhesVenda />} />
                 <Route path="/despesas/criar" element={<CadastroDespesas />} />
+                <Route path="/caixa/atual" element={<Caixa />} />
             </Routes>
         </BrowserRouter>
     )

@@ -1,0 +1,106 @@
+.caixa-card {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.caixa-title {
+    color: var(--text-color);
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.saldo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+.saldo-valor {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.saldo-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.saldo-status.positivo {
+    background-color: rgba(75, 181, 67, 0.2);
+    color: var(--success-color);
+}
+
+.saldo-status.negativo {
+    background-color: rgba(244, 67, 54, 0.2);
+    color: var(--danger-color);
+}
+
+.refresh-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.refresh-button:hover {
+    background-color: var(--primary-hover);
+}
+
+.refresh-button:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+}
+
+.loading-indicator {
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message {
+    color: var(--danger-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Usando as mesmas variáveis de cor do tema escuro da tela original */
+:root {
+    --primary-color: #f0660a;
+    --primary-hover: #d45a09;
+    --secondary-color: #555555;
+    --secondary-hover: #666666;
+    --success-color: #4bb543;
+    --danger-color: #f44336;
+    --text-color: #f0f0f0;
+    --text-light: #bbbbbb;
+    --bg-color: #222222;
+    --card-color: #333333;
+    --border-color: #444444;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}

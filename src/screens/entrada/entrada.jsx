@@ -201,11 +201,11 @@ const Entrada = () => {
             nome,
             descricao,
             descontoMaximo: descontoMaximo || 0,
-            tipo,
             observacao: Observacao,
             valorVenda: parseFloat(valorVenda.replace(",", ".")),
             img,
-            imgAdicional
+            imgAdicional,
+            tipo
         };
 
         if (tipo === "produto") {
@@ -217,6 +217,7 @@ const Entrada = () => {
             infos.localizacao = locais;
             infos.codigoBarras = codigoBarras;
             infos.SKU = SKU;
+            infos.tipo = "venda"
         }
 
         let url = `/produto`;
@@ -224,7 +225,7 @@ const Entrada = () => {
             url += "/atualizar";
             infos.id = id;
         }
-        console.log()
+        
         api.post(url, infos).then((res) => {
             const sucesso = res.data?.valor?._id || res.data?.valor?.modifiedCount;
             if (sucesso) {
