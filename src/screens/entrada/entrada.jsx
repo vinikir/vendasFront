@@ -239,6 +239,7 @@ const Entrada = () => {
             setMsg(err.response?.data?.valor || "Erro ao salvar, tente novamente.");
             setModalAberta(true);
         });
+    }
 
     return (
         <div className="page-container">
