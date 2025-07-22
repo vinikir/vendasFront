@@ -225,7 +225,7 @@ const Entrada = () => {
             url += "/atualizar";
             infos.id = id;
         }
-        
+        console.log("Enviando dados:", infos);
         api.post(url, infos).then((res) => {
             const sucesso = res.data?.valor?._id || res.data?.valor?.modifiedCount;
             if (sucesso) {
